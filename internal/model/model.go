@@ -12,3 +12,5 @@ type Option struct {
 	Only []string
 	Except []string
 }
+
+type Combination map[string]string

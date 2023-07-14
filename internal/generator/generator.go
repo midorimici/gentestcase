@@ -2,8 +2,9 @@ package generator
 
 import "integtest/internal/model"
 
+
 type Generator interface {
-	Generate() ([][]string, error)
+	Generate() []model.Combination
 }
 
 type generator struct {
@@ -14,7 +15,74 @@ func New(c model.Cases) Generator {
 	return &generator{c}
 }
 
-func (g *generator) Generate() ([][]string, error) {
-	const funcName = "Generate"
-	return nil, nil
+func (g *generator) Generate() []model.Combination {
+	return g.combinations()
+}
+
+func (g *generator) combinations() []model.Combination {
+	maxIndices := []int{}
+	options := [][]string{}
+	indexKeyMap := map[int]string{}
+	index := 0
+	for k, v := range g.cases {
+		maxIndex := len(v.Options)-1
+		maxIndices = append(maxIndices, maxIndex)
+		ops := []string{}
+		for _, o := range v.Options {
+			ops = append(ops, o.Name)
+		}
+		options = append(options, ops)
+		
+		indexKeyMap[index] = k
+		index++
+	}
+
+	t := combTable(len(g.cases), maxIndices, options)
+
+	return tableToMapSlice(t, indexKeyMap)
+}
+
+func sum(a []int) int {
+	var sum int
+	for _, v := range a {
+		sum += v
+	}
+	return sum
+}
+
+func combTable(length int, maxIndices []int, options [][]string) [][]string {
+	combs := [][]string{}
+	counter := make([]int, length)
+	for sum(maxIndices) != sum(counter) {
+		i := length-1
+		counter[i]++
+		if counter[i] > maxIndices[i] {
+			for j := i; j >= 0; j-- {
+				if j > 0 && counter[j] > maxIndices[j] {
+					counter[j] = 0
+					counter[j-1]++
+				}
+			}
+		}
+
+		ops := []string{}
+		for k, v := range counter {
+			ops = append(ops, options[k][v])
+		}
+		combs = append(combs, ops)
+	}
+	return combs
+}
+
+func tableToMapSlice(t [][]string, indexKeyMap map[int]string) []model.Combination {
+	maps := []model.Combination{}
+	for _, r := range t {
+		m := model.Combination{}
+		for i := 0; i < len(r); i++ {
+			k := indexKeyMap[i]
+			m[k] = r[i]
+		}
+		maps = append(maps, m)
+	}
+	return maps
 }

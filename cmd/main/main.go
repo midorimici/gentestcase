@@ -8,6 +8,7 @@ import (
 
 	"gopkg.in/yaml.v3"
 
+	"integtest/internal/generator"
 	"integtest/internal/model"
 )
 
@@ -19,7 +20,8 @@ func main() {
 		log.Fatal(err)
 	}
 	
-	fmt.Printf("%#v\n", len(d))
+	g := generator.New(d)
+	g.Generate()
 }
 
 func loadData() (model.Cases, error) {
