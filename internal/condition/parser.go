@@ -16,14 +16,11 @@ var (
 
 var (
 	parRe   *regexp.Regexp
-	expRe   *regexp.Regexp
 	valueRe *regexp.Regexp
 )
 
 func init() {
 	parRe = regexp.MustCompile(`^(!?)\((.+)\)$`)
-	s := `(!?\(.+\)|.+?)`
-	expRe = regexp.MustCompile(fmt.Sprintf(`^%s ([&|]{2}) %s$`, s, s))
 	valueRe = regexp.MustCompile(`(!?)(.+)\.(.+)`)
 }
 
@@ -60,12 +57,15 @@ func (p *parser) condition(combination model.Combination, text string) (bool, er
 		parRemoved = parRe.ReplaceAllString(text, "$2")
 	}
 
-	matches := expRe.FindStringSubmatch(parRemoved)
-	if len(matches) == 0 {
+	exp, err := parseExpression(parRemoved)
+	if err != nil {
+		return false, err
+	}
+	if exp == nil {
 		return p.valueCondition(combination, parRemoved)
 	}
 
-	result, err := p.expCondition(combination, matches)
+	result, err := p.expCondition(combination, exp)
 	if err != nil {
 		return false, err
 	}
@@ -106,6 +106,52 @@ func isGrouped(text string) (bool, error) {
 	return true, nil
 }
 
+type expression struct {
+	left     string
+	right    string
+	operator string
+}
+
+func parseExpression(text string) (*expression, error) {
+	var exp *expression
+	var depth int
+	var operatorIndex int
+	for i, r := range text {
+		switch r {
+		case '(':
+			depth++
+
+		case ')':
+			depth--
+
+		case '&', '|':
+			if depth == 0 {
+				operatorIndex = i
+				exp = &expression{operator: fmt.Sprintf("%s%s", string(r), string(r))}
+			}
+		}
+
+		if exp != nil {
+			break
+		}
+	}
+
+	// Just a value without logical operator
+	if exp == nil {
+		return nil, nil
+	}
+
+	leftEndIndex := operatorIndex - 2
+	rightStartIndex := operatorIndex + 3
+	if text[leftEndIndex+1:rightStartIndex] != fmt.Sprintf(" %s ", exp.operator) {
+		return nil, fmt.Errorf(`parsing %s: %w`, text, errParseFailed)
+	}
+
+	exp.left = text[:leftEndIndex+1]
+	exp.right = text[rightStartIndex:]
+	return exp, nil
+}
+
 func (p *parser) valueCondition(combination model.Combination, text string) (bool, error) {
 	v := valueRe.FindStringSubmatch(text)
 	if len(v) == 0 {
@@ -132,23 +178,19 @@ func (p *parser) valueCondition(combination model.Combination, text string) (boo
 	return result, nil
 }
 
-func (p *parser) expCondition(combination model.Combination, matches []string) (bool, error) {
-	left := matches[1]
-	operator := matches[2]
-	right := matches[3]
-
-	leftResult, err := p.condition(combination, left)
+func (p *parser) expCondition(combination model.Combination, exp *expression) (bool, error) {
+	leftResult, err := p.condition(combination, exp.left)
 	if err != nil {
 		return false, err
 	}
 
-	rightResult, err := p.condition(combination, right)
+	rightResult, err := p.condition(combination, exp.right)
 	if err != nil {
 		return false, err
 	}
 
 	var result bool
-	switch operator {
+	switch exp.operator {
 	case "&&":
 		result = leftResult && rightResult
 
@@ -156,7 +198,7 @@ func (p *parser) expCondition(combination model.Combination, matches []string) (
 		result = leftResult || rightResult
 
 	default:
-		return false, fmt.Errorf(`parsing "%s": %w`, operator, errInvalidOperator)
+		return false, fmt.Errorf(`parsing "%s": %w`, exp.operator, errInvalidOperator)
 	}
 	return result, nil
 }
