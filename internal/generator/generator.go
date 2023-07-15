@@ -1,7 +1,8 @@
 package generator
 
-import "integtest/internal/model"
-
+import (
+	"integtest/internal/model"
+)
 
 type Generator interface {
 	Generate() []model.Combination
@@ -25,14 +26,14 @@ func (g *generator) combinations() []model.Combination {
 	indexKeyMap := map[int]string{}
 	index := 0
 	for k, v := range g.cases {
-		maxIndex := len(v.Options)-1
+		maxIndex := len(v.Options) - 1
 		maxIndices = append(maxIndices, maxIndex)
 		ops := []string{}
-		for _, o := range v.Options {
-			ops = append(ops, o.Name)
+		for id := range v.Options {
+			ops = append(ops, id)
 		}
 		options = append(options, ops)
-		
+
 		indexKeyMap[index] = k
 		index++
 	}
@@ -51,10 +52,13 @@ func sum(a []int) int {
 }
 
 func combTable(length int, maxIndices []int, options [][]string) [][]string {
+	maxIndicesSum := sum(maxIndices)
 	combs := [][]string{}
 	counter := make([]int, length)
-	for sum(maxIndices) != sum(counter) {
-		i := length-1
+	for sum(counter) < maxIndicesSum {
+		combs = append(combs, optionsByCounter(options, counter))
+
+		i := length - 1
 		counter[i]++
 		if counter[i] > maxIndices[i] {
 			for j := i; j >= 0; j-- {
@@ -64,14 +68,18 @@ func combTable(length int, maxIndices []int, options [][]string) [][]string {
 				}
 			}
 		}
-
-		ops := []string{}
-		for k, v := range counter {
-			ops = append(ops, options[k][v])
-		}
-		combs = append(combs, ops)
 	}
+	combs = append(combs, optionsByCounter(options, counter))
+
 	return combs
+}
+
+func optionsByCounter(options [][]string, counter []int) []string {
+	ops := []string{}
+	for k, v := range counter {
+		ops = append(ops, options[k][v])
+	}
+	return ops
 }
 
 func tableToMapSlice(t [][]string, indexKeyMap map[int]string) []model.Combination {
