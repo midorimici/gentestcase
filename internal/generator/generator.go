@@ -1,8 +1,6 @@
 package generator
 
-import (
-	"integtest/internal/model"
-)
+import "integtest/internal/model"
 
 type Generator interface {
 	Generate() []model.Combination
