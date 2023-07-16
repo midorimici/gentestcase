@@ -10,6 +10,8 @@ import (
 	"gopkg.in/yaml.v3"
 
 	"integtest/internal/condition"
+	"integtest/internal/converter"
+	"integtest/internal/exporter"
 	"integtest/internal/filterer"
 	"integtest/internal/generator"
 	"integtest/internal/model"
@@ -35,11 +37,14 @@ func main() {
 
 	s := sorter.New(cases, elements, opOrds)
 	scs := s.Sort(fcs)
-	fmt.Println(len(scs))
-	for _, v := range scs {
-		fmt.Println(v)
-	}
 
+	cv := converter.New(cases, elements)
+	t := cv.ConvertCombinationMapsToTable(scs)
+
+	e := exporter.New(elements)
+	if err := e.ExportCSV(t); err != nil {
+		log.Fatal(err)
+	}
 }
 
 func loadData() (model.Cases, []string, map[string]int, error) {
