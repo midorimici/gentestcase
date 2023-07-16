@@ -6,13 +6,13 @@ import (
 	"log"
 	"os"
 
-	"integtest/internal/condition"
-	"integtest/internal/converter"
-	"integtest/internal/exporter"
-	"integtest/internal/filterer"
-	"integtest/internal/generator"
-	"integtest/internal/loader"
-	"integtest/internal/sorter"
+	"github.com/midorimici/gentestcase/internal/condition"
+	"github.com/midorimici/gentestcase/internal/converter"
+	"github.com/midorimici/gentestcase/internal/exporter"
+	"github.com/midorimici/gentestcase/internal/filterer"
+	"github.com/midorimici/gentestcase/internal/generator"
+	"github.com/midorimici/gentestcase/internal/loader"
+	"github.com/midorimici/gentestcase/internal/sorter"
 )
 
 var (

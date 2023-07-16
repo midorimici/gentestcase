@@ -1,8 +1,8 @@
 package filterer
 
 import (
-	"integtest/internal/condition"
-	"integtest/internal/model"
+	"github.com/midorimici/gentestcase/internal/condition"
+	"github.com/midorimici/gentestcase/internal/model"
 )
 
 type Filterer interface {

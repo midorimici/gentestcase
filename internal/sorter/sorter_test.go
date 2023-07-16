@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
-	"integtest/internal/model"
-	"integtest/internal/sorter"
+	"github.com/midorimici/gentestcase/internal/model"
+	"github.com/midorimici/gentestcase/internal/sorter"
 )
 
 func Test_sorter_Sort(t *testing.T) {

@@ -1,15 +1,15 @@
-## integtest
+## gentestcase
 
 Generate integration test cases.
 
 ### Usage
 
 1. Prepare YAML file which defines test elements
-1. Run `integtest`
+1. Run `gentestcase`
 1. A CSV file is generated
 
 ```
-Usage of integtest:
+Usage of gentestcase:
   -input string
         input YAML filename (default "elements.yml")
   -output string

@@ -1,4 +1,4 @@
-module integtest
+module github.com/midorimici/gentestcase
 
 go 1.20
 

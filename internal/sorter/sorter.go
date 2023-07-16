@@ -3,7 +3,7 @@ package sorter
 import (
 	"sort"
 
-	"integtest/internal/model"
+	"github.com/midorimici/gentestcase/internal/model"
 )
 
 type Sorter interface {

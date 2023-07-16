@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
-	"integtest/internal/generator"
-	"integtest/internal/model"
+	"github.com/midorimici/gentestcase/internal/generator"
+	"github.com/midorimici/gentestcase/internal/model"
 )
 
 func Test_generator_Generate(t *testing.T) {

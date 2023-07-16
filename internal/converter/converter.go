@@ -1,6 +1,6 @@
 package converter
 
-import "integtest/internal/model"
+import "github.com/midorimici/gentestcase/internal/model"
 
 type Converter interface {
 	ConvertCombinationMapsToTable(maps []model.Combination) [][]string

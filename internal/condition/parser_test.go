@@ -3,8 +3,8 @@ package condition_test
 import (
 	"testing"
 
-	"integtest/internal/condition"
-	"integtest/internal/model"
+	"github.com/midorimici/gentestcase/internal/condition"
+	"github.com/midorimici/gentestcase/internal/model"
 )
 
 func Test_parser_Parse(t *testing.T) {

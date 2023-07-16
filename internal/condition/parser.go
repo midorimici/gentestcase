@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"regexp"
 
-	"integtest/internal/model"
+	"github.com/midorimici/gentestcase/internal/model"
 )
 
 var (

@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
-	"integtest/internal/converter"
-	"integtest/internal/model"
+	"github.com/midorimici/gentestcase/internal/converter"
+	"github.com/midorimici/gentestcase/internal/model"
 )
 
 func Test_converter_ConvertCombinationMapsToTable(t *testing.T) {

@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
-	"integtest/internal/filterer"
-	"integtest/internal/model"
+	"github.com/midorimici/gentestcase/internal/filterer"
+	"github.com/midorimici/gentestcase/internal/model"
 )
 
 type mockParser struct{}

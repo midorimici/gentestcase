@@ -1,6 +1,6 @@
 package generator
 
-import "integtest/internal/model"
+import "github.com/midorimici/gentestcase/internal/model"
 
 type Generator interface {
 	Generate() []model.Combination

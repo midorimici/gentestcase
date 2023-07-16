@@ -8,7 +8,7 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"integtest/internal/model"
+	"github.com/midorimici/gentestcase/internal/model"
 )
 
 type data struct {
