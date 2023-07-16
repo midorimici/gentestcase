@@ -5,6 +5,7 @@ import (
 	"io"
 	"log"
 	"regexp"
+	"strings"
 
 	"gopkg.in/yaml.v3"
 
@@ -14,7 +15,7 @@ import (
 type data struct {
 	Cases           model.Cases
 	OrderedElements []string
-	OptionOrders    map[string]int
+	OptionOrders    map[string]map[string]int
 }
 
 type Loader interface {
@@ -49,7 +50,7 @@ func (l *loader) Load() (*data, error) {
 		return nil, fmt.Errorf("%s: %w", funcName, err)
 	}
 
-	opOrds, err := optionOrders(fileStr)
+	opOrds, err := optionOrders(fileStr, elements)
 	if err != nil {
 		return nil, fmt.Errorf("%s: %w", funcName, err)
 	}
@@ -69,7 +70,7 @@ func readInput(f io.Reader) ([]byte, error) {
 }
 
 func orderedElements(fileStr string) ([]string, error) {
-	re := regexp.MustCompile(`([^ \n]+):\n  name:`)
+	re := regexp.MustCompile(`(?:^|\n)([^ \n]+):\n`)
 	matches := re.FindAllStringSubmatch(fileStr, -1)
 	if matches == nil {
 		return nil, fmt.Errorf("orderedElements: failed")
@@ -83,16 +84,38 @@ func orderedElements(fileStr string) ([]string, error) {
 	return orders, nil
 }
 
-func optionOrders(fileStr string) (map[string]int, error) {
+func optionOrders(fileStr string, elements []string) (map[string]map[string]int, error) {
 	re := regexp.MustCompile(`\n    ([^ \n]+):\n`)
 	matches := re.FindAllStringSubmatch(fileStr, -1)
 	if matches == nil {
 		return nil, fmt.Errorf("optionOrders: failed")
 	}
 
-	orders := map[string]int{}
+	opLocs := re.FindAllStringIndex(fileStr, -1)
+	if opLocs == nil {
+		return nil, fmt.Errorf("optionOrders: failed")
+	}
+
+	elemRe := regexp.MustCompile(fmt.Sprintf(`(?:^|\n)(?:%s):\n`, strings.Join(elements, "|")))
+	elemLocs := elemRe.FindAllStringIndex(fileStr, -1)
+	if elemLocs == nil {
+		return nil, fmt.Errorf("optionOrders: failed")
+	}
+
+	orders := map[string]map[string]int{}
+	for _, e := range elements {
+		orders[e] = map[string]int{}
+	}
+
+	j := 0
 	for i, m := range matches {
-		orders[m[1]] = i
+		if l := opLocs[i][0]; elemLocs[j][0] < l {
+			if j < len(elements)-1 && l > elemLocs[j+1][0] {
+				j++
+			}
+
+			orders[elements[j]][m[1]] = i
+		}
 	}
 
 	return orders, nil

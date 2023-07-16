@@ -15,7 +15,11 @@ func Test_sorter_Sort(t *testing.T) {
 		"e3": {Options: map[string]model.Option{"g": {}, "h": {}}},
 	}
 	orderedElements := []string{"e1", "e2", "e3"}
-	optionOrders := map[string]int{"a": 0, "b": 1, "d": 2, "e": 3, "f": 4, "g": 5, "h": 6}
+	optionOrders := map[string]map[string]int{
+		"e1": {"a": 0, "b": 1},
+		"e2": {"d": 2, "e": 3, "f": 4},
+		"e3": {"g": 5, "h": 6},
+	}
 	want := []model.Combination{
 		{"e1": "a", "e2": "d", "e3": "g"},
 		{"e1": "a", "e2": "d", "e3": "h"},

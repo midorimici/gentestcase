@@ -13,10 +13,10 @@ type Sorter interface {
 type sorter struct {
 	cases           model.Cases
 	orderedElements []string
-	optionOrders    map[string]int
+	optionOrders    map[string]map[string]int
 }
 
-func New(cases model.Cases, orderedElements []string, optionOrders map[string]int) Sorter {
+func New(cases model.Cases, orderedElements []string, optionOrders map[string]map[string]int) Sorter {
 	return &sorter{cases, orderedElements, optionOrders}
 }
 
@@ -30,8 +30,8 @@ func (s *sorter) Sort(c []model.Combination) []model.Combination {
 			oi := ci[e]
 			oj := cj[e]
 
-			oiOrd := s.optionOrders[oi]
-			ojOrd := s.optionOrders[oj]
+			oiOrd := s.optionOrders[e][oi]
+			ojOrd := s.optionOrders[e][oj]
 
 			if oiOrd < ojOrd {
 				return true
