@@ -1,0 +1,33 @@
+time:
+  name: Time
+  options:
+    morning:
+      name: Morning
+    afternoon:
+      name: Afternoon
+    evening:
+      name: Evening
+    midnight:
+      name: Midnight
+place:
+  name: Place
+  options:
+    house:
+      name: House
+    office:
+      name: Office
+      if: '!time.midnight'
+    park:
+      name: Park
+      if: '!time.midnight'
+food:
+  name: Food
+  options:
+    water:
+      name: Water
+    vegetable:
+      name: Vegetable
+      if: '!time.midnight'
+    meat:
+      name: Meat
+      if: '(time.afternoon || time.evening) && place.house'
