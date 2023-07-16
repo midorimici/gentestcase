@@ -5,3 +5,6 @@ run:
 
 test:
 	@go test -v $(PKG)
+
+build:
+	@go build cmd/integtest/integtest.go
