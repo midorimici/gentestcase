@@ -77,7 +77,7 @@ func main() {
 	}
 
 	// Export to CSV
-	e := exporter.New(out, d.OrderedElements)
+	e := exporter.New(out, d.Cases, d.OrderedElements)
 	if err := e.ExportCSV(t); err != nil {
 		log.Fatal(err)
 	}
