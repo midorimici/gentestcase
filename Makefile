@@ -1,7 +1,7 @@
 PKG=./...
 
 run:
-	@go run cmd/main/main.go
+	@go run cmd/integtest/integtest.go
 
 test:
 	@go test -v $(PKG)
