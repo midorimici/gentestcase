@@ -25,7 +25,7 @@ An element contains `name` and `options` properties.
 `options` is a key-value pair with an option unique identifier for its key and an object with `name` and `if` properties for its value.
 
 Below is an example YAML format.
-You can also refer to `examples/elements.yml`.
+You can also refer to `examples/elements.yml` as input YAML file and `examples/data.csv` as its output.
 
 ```yml
 element1:
