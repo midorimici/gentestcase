@@ -2,6 +2,12 @@
 
 Generate integration test cases.
 
+### Install
+
+```
+go install github.com/midorimici/gentestcase@1.0.0
+```
+
 ### Usage
 
 1. Prepare YAML file which defines test elements
