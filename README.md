@@ -2,10 +2,10 @@
 
 Generate integration test cases.
 
-### Install
+### Installation
 
 ```
-go install github.com/midorimici/gentestcase@1.0.0
+go install github.com/midorimici/gentestcase/cmd/gentestcase@v1.0.0
 ```
 
 ### Usage
