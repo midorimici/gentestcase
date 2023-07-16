@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/midorimici/gentestcase/internal/model/cases",
+  "$ref": "#/$defs/Cases",
+  "$defs": {
+    "Cases": {
+      "patternProperties": {
+        ".*": {
+          "$ref": "#/$defs/Element"
+        }
+      },
+      "type": "object"
+    },
+    "Element": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "options": {
+          "patternProperties": {
+            ".*": {
+              "$ref": "#/$defs/Option"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": ["name", "options"]
+    },
+    "Option": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "if": {
+          "type": "string",
+          "title": "Condition",
+          "description": "Condition to output the option",
+          "examples": ["element1.option_id \u0026\u0026 !element2.option_id"]
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": ["name"]
+    }
+  }
+}
