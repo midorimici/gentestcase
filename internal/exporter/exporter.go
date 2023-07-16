@@ -3,40 +3,31 @@ package exporter
 import (
 	"encoding/csv"
 	"fmt"
-	"os"
+	"io"
 )
-
-const CSVFileName = "data.csv"
 
 type Exporter interface {
 	ExportCSV(table [][]string) error
 }
 
 type exporter struct {
+	out     io.Writer
 	headers []string
 }
 
-func New(headers []string) Exporter {
-	return &exporter{headers}
+func New(out io.Writer, headers []string) Exporter {
+	return &exporter{out, headers}
 }
 
 func (e *exporter) ExportCSV(table [][]string) error {
 	const funcName = "ExportCSV"
 
-	f, err := os.Create(CSVFileName)
-	if err != nil {
-		return fmt.Errorf("%s: %w", funcName, err)
-	}
-	defer f.Close()
-
-	w := csv.NewWriter(f)
-	err = w.Write(e.headers)
-	if err != nil {
+	w := csv.NewWriter(e.out)
+	if err := w.Write(e.headers); err != nil {
 		return fmt.Errorf("%s: %w", funcName, err)
 	}
 
-	err = w.WriteAll(table)
-	if err != nil {
+	if err := w.WriteAll(table); err != nil {
 		return fmt.Errorf("%s: %w", funcName, err)
 	}
 	return nil

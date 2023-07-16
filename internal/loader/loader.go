@@ -4,15 +4,12 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"os"
 	"regexp"
 
 	"gopkg.in/yaml.v3"
 
 	"integtest/internal/model"
 )
-
-const elementsFileName = "elements.example.yml"
 
 type data struct {
 	Cases           model.Cases
@@ -24,16 +21,18 @@ type Loader interface {
 	Load() (*data, error)
 }
 
-type loader struct{}
+type loader struct {
+	in io.Reader
+}
 
-func New() Loader {
-	return &loader{}
+func New(in io.Reader) Loader {
+	return &loader{in}
 }
 
 func (l *loader) Load() (*data, error) {
 	const funcName = "loader.Load"
 
-	bytes, err := readFile()
+	bytes, err := readInput(l.in)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -58,14 +57,8 @@ func (l *loader) Load() (*data, error) {
 	return &data{c, elements, opOrds}, nil
 }
 
-func readFile() ([]byte, error) {
-	const funcName = "readFile"
-
-	f, err := os.Open(elementsFileName)
-	if err != nil {
-		return nil, fmt.Errorf("%s: %w", funcName, err)
-	}
-	defer f.Close()
+func readInput(f io.Reader) ([]byte, error) {
+	const funcName = "readInput"
 
 	data, err := io.ReadAll(f)
 	if err != nil {
