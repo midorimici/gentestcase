@@ -17,10 +17,26 @@ func main() {
 	flag.Parse()
 
 	s := jsonschema.Reflect(&model.Data{})
+	restrictPropertyNames(s)
 
 	if err := export(s); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func restrictPropertyNames(s *jsonschema.Schema) {
+	restrictPropertyName(s.Definitions["Conditions"])
+	restrictPropertyName(s.Definitions["Elements"])
+	op, ok := s.Definitions["Element"].Properties.Get("options")
+	if !ok {
+		log.Fatal("options property not found in Element")
+	}
+	restrictPropertyName(op.(*jsonschema.Schema))
+}
+
+func restrictPropertyName(s *jsonschema.Schema) {
+	s.PatternProperties = map[string]*jsonschema.Schema{`^\w+$`: s.PatternProperties[".*"]}
+	s.AdditionalProperties = jsonschema.FalseSchema
 }
 
 func export(s *jsonschema.Schema) error {

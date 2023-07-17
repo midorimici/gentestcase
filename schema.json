@@ -5,10 +5,11 @@
   "$defs": {
     "Conditions": {
       "patternProperties": {
-        ".*": {
+        "^\\w+$": {
           "type": "string"
         }
       },
+      "additionalProperties": false,
       "type": "object"
     },
     "Data": {
@@ -38,10 +39,11 @@
         },
         "options": {
           "patternProperties": {
-            ".*": {
+            "^\\w+$": {
               "$ref": "#/$defs/Option"
             }
           },
+          "additionalProperties": false,
           "type": "object",
           "title": "Options"
         }
@@ -55,10 +57,11 @@
     },
     "Elements": {
       "patternProperties": {
-        ".*": {
+        "^\\w+$": {
           "$ref": "#/$defs/Element"
         }
       },
+      "additionalProperties": false,
       "type": "object"
     },
     "Option": {
