@@ -60,7 +60,8 @@ group ::= '(' exp ')' | '!(' exp ')' | value_bool
 exp ::= value_bool (' ' operator ' ' value_bool)+
 operator ::= '&&' | '||'
 value_bool ::= value | '!' value
-value ::= element '.' option
+value ::= element '.' option | '$' condition_ref
 element ::= text
 option ::= text
+condition_ref ::= text
 ```
