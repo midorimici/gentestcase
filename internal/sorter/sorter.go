@@ -11,13 +11,13 @@ type Sorter interface {
 }
 
 type sorter struct {
-	cases           model.Cases
+	elements        model.Elements
 	orderedElements []string
 	optionOrders    map[string]map[string]int
 }
 
-func New(cases model.Cases, orderedElements []string, optionOrders map[string]map[string]int) Sorter {
-	return &sorter{cases, orderedElements, optionOrders}
+func New(elements model.Elements, orderedElements []string, optionOrders map[string]map[string]int) Sorter {
+	return &sorter{elements, orderedElements, optionOrders}
 }
 
 func (s *sorter) Sort(c []model.Combination) []model.Combination {

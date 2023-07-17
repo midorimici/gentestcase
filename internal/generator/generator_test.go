@@ -2,21 +2,34 @@ package generator_test
 
 import (
 	"reflect"
+	"sort"
 	"testing"
 
 	"github.com/midorimici/gentestcase/internal/generator"
 	"github.com/midorimici/gentestcase/internal/model"
 )
 
+func sorted(s []model.Combination) []model.Combination {
+	sort.Slice(s, func(i, j int) bool {
+		si := s[i]
+		sj := s[j]
+		ti := si["e1"] + si["e2"] + si["e3"]
+		tj := sj["e1"] + sj["e2"] + sj["e3"]
+
+		return ti < tj
+	})
+	return s
+}
+
 func Test_generator_Generate(t *testing.T) {
-	c := model.Cases{
+	elems := model.Elements{
 		"e1": {Options: map[string]model.Option{"a": {}, "b": {}}},
 		"e2": {Options: map[string]model.Option{"d": {}, "e": {}, "f": {}}},
 		"e3": {Options: map[string]model.Option{"g": {}, "h": {}}},
 	}
 
 	type args struct {
-		cases model.Cases
+		elements model.Elements
 	}
 	tests := []struct {
 		name string
@@ -25,7 +38,7 @@ func Test_generator_Generate(t *testing.T) {
 	}{
 		{
 			name: "returns result as expected",
-			args: args{c},
+			args: args{elems},
 			want: []model.Combination{
 				{"e1": "a", "e2": "d", "e3": "g"},
 				{"e1": "a", "e2": "d", "e3": "h"},
@@ -44,9 +57,13 @@ func Test_generator_Generate(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := generator.New(tt.args.cases)
-			if got := g.Generate(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("generator.Generate() = %v, want %v", got, tt.want)
+			g := generator.New(tt.args.elements)
+			got := g.Generate()
+			got = sorted(got)
+			want := sorted(tt.want)
+
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("generator.Generate() = %v, want %v", got, want)
 			}
 		})
 	}

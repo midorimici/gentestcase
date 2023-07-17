@@ -5,7 +5,7 @@ Generate integration test cases.
 ### Installation
 
 ```
-go install github.com/midorimici/gentestcase/cmd/gentestcase@v1.0.3
+go install github.com/midorimici/gentestcase/cmd/gentestcase@latest
 ```
 
 ### Usage
@@ -24,42 +24,49 @@ Usage of gentestcase:
 
 ### Element YAML specification
 
-A top-level element represents an element unique identifier.
+A top-level properties are `elements` and optional `conditions`.
+
+Each key of `elements` represents an element unique identifier.
 
 An element contains `name` and `options` properties.
 
 `options` is a key-value pair with an option unique identifier for its key and an object with `name` and `if` properties for its value.
 
+`conditions` defines condition variables which can be used by `if` property of element options.
+
 Below is an example YAML format.
-You can also refer to `examples/elements.yml` as input YAML file and `examples/data.csv` as its output.
+You can also refer to `examples` directory as input YAML files and its outputs.
 
 ```yml
-element1:
-  name: Element 1
-  options:
-    option_a:
-      name: Option A
-    option_b:
-      name: Option B
-element2:
-  name: Element 2
-  options:
-    option_a:
-      name: Option A
-      if: element1.option_a
-    option_b:
-      name: Option B
+elements:
+  element1:
+    name: Element 1
+    options:
+      option_a:
+        name: Option A
+      option_b:
+        name: Option B
+  element2:
+    name: Element 2
+    options:
+      option_a:
+        name: Option A
+        if: element1.option_a
+      option_b:
+        name: Option B
 ```
 
 Below is the EBNF for `if` field syntax.
 
 ```ebnf
-syntax ::= exp | group (' ' operator ' ' group)*
+syntax ::= exp | groups
+groups ::= group (' ' operator ' ' group)* | groups (' ' operator ' ' groups)*
 group ::= '(' exp ')' | '!(' exp ')' | value_bool
 exp ::= value_bool (' ' operator ' ' value_bool)+
 operator ::= '&&' | '||'
 value_bool ::= value | '!' value
-value ::= element '.' option
+value ::= element '.' option | '$' condition_ref
 element ::= text
 option ::= text
+condition_ref ::= text
 ```

@@ -1,20 +1,40 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/midorimici/gentestcase/internal/model/cases",
-  "$ref": "#/$defs/Cases",
+  "$id": "https://github.com/midorimici/gentestcase/internal/model/data",
+  "$ref": "#/$defs/Data",
   "$defs": {
-    "Cases": {
+    "Conditions": {
       "patternProperties": {
         ".*": {
-          "$ref": "#/$defs/Element"
+          "type": "string"
         }
       },
       "type": "object"
     },
+    "Data": {
+      "properties": {
+        "elements": {
+          "$ref": "#/$defs/Elements",
+          "title": "Elements"
+        },
+        "conditions": {
+          "$ref": "#/$defs/Conditions",
+          "title": "Conditions",
+          "description": "Condition variables"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "elements"
+      ]
+    },
     "Element": {
       "properties": {
         "name": {
-          "type": "string"
+          "type": "string",
+          "title": "Name",
+          "description": "Outputted element name"
         },
         "options": {
           "patternProperties": {
@@ -22,28 +42,45 @@
               "$ref": "#/$defs/Option"
             }
           },
-          "type": "object"
+          "type": "object",
+          "title": "Options"
         }
       },
       "additionalProperties": false,
       "type": "object",
-      "required": ["name", "options"]
+      "required": [
+        "name",
+        "options"
+      ]
+    },
+    "Elements": {
+      "patternProperties": {
+        ".*": {
+          "$ref": "#/$defs/Element"
+        }
+      },
+      "type": "object"
     },
     "Option": {
       "properties": {
         "name": {
-          "type": "string"
+          "type": "string",
+          "title": "Name",
+          "description": "Outputted option name"
         },
         "if": {
           "type": "string",
-          "title": "Condition",
           "description": "Condition to output the option",
-          "examples": ["element1.option_id \u0026\u0026 !element2.option_id"]
+          "examples": [
+            "element1.option_id \u0026\u0026 !element2.option_id"
+          ]
         }
       },
       "additionalProperties": false,
       "type": "object",
-      "required": ["name"]
+      "required": [
+        "name"
+      ]
     }
   }
 }

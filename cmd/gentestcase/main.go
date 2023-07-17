@@ -44,23 +44,23 @@ func main() {
 	}
 
 	// Generate all combinations
-	g := generator.New(d.Cases)
+	g := generator.New(d.Data.Elements)
 	cs := g.Generate()
 
 	// Filter unnecessary cases
-	p := condition.NewParser(d.Cases)
-	f := filterer.New(d.Cases, p, cs)
+	p := condition.NewParser(d.Data)
+	f := filterer.New(d.Data.Elements, p, cs)
 	fcs, err := f.Filter()
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Sort cases
-	s := sorter.New(d.Cases, d.OrderedElements, d.OptionOrders)
+	s := sorter.New(d.Data.Elements, d.OrderedElements, d.OptionOrders)
 	scs := s.Sort(fcs)
 
 	// Convert cases to table
-	cv := converter.New(d.Cases, d.OrderedElements)
+	cv := converter.New(d.Data.Elements, d.OrderedElements)
 	t := cv.ConvertCombinationMapsToTable(scs)
 
 	// Setup output writer
@@ -77,7 +77,7 @@ func main() {
 	}
 
 	// Export to CSV
-	e := exporter.New(out, d.Cases, d.OrderedElements)
+	e := exporter.New(out, d.Data.Elements, d.OrderedElements)
 	if err := e.ExportCSV(t); err != nil {
 		log.Fatal(err)
 	}
