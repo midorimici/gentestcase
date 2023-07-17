@@ -70,7 +70,7 @@ func readInput(f io.Reader) ([]byte, error) {
 }
 
 func orderedElements(fileStr string) ([]string, error) {
-	re := regexp.MustCompile(`\n  ([^ \n]+):\n`)
+	re := regexp.MustCompile(`\n  (\w+):\n`)
 	matches := re.FindAllStringSubmatch(fileStr, -1)
 	if matches == nil {
 		return nil, fmt.Errorf("orderedElements: failed")
@@ -85,7 +85,7 @@ func orderedElements(fileStr string) ([]string, error) {
 }
 
 func optionOrders(fileStr string, elements []string) (map[string]map[string]int, error) {
-	re := regexp.MustCompile(`\n      ([^ \n]+):\n`)
+	re := regexp.MustCompile(`\n      (\w+):\n`)
 	matches := re.FindAllStringSubmatch(fileStr, -1)
 	if matches == nil {
 		return nil, fmt.Errorf("optionOrders: failed")

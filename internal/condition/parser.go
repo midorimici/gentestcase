@@ -22,8 +22,8 @@ var (
 
 func init() {
 	parRe = regexp.MustCompile(`^(!?)\((.+)\)$`)
-	valueRe = regexp.MustCompile(`(!?)(.+)\.(.+)`)
-	refRe = regexp.MustCompile(`(!?)\$([\w-]+)`)
+	valueRe = regexp.MustCompile(`(!?)(\w+)\.(\w+)`)
+	refRe = regexp.MustCompile(`(!?)\$(\w+)`)
 }
 
 type Parser interface {
