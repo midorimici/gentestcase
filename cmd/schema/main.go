@@ -12,13 +12,13 @@ import (
 const schemaFilename = "schema.json"
 
 func main() {
-	s := jsonschema.Reflect(&model.Cases{})
+	s := jsonschema.Reflect(&model.Data{})
 	d, err := json.MarshalIndent(s, "", "  ")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	f, err := os.Open(schemaFilename)
+	f, err := os.Create(schemaFilename)
 	if err != nil {
 		log.Fatal(err)
 	}

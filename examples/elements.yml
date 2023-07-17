@@ -1,48 +1,49 @@
 # yaml-language-server: $schema=../schema.json
 
-animal:
-  name: Bear
-  options:
-    bear:
-      name: Bear
-      if: '!season.winter && !place.sky'
-    bird:
-      name: Bird
-      if: '!place.water'
-    fish:
-      name: Fish
-      if: '!place.ground'
-season:
-  name: Season
-  options:
-    spring:
-      name: Spring
-    summer:
-      name: Summer
-    autumn:
-      name: Autumn
-    winter:
-      name: Winter
-place:
-  name: Place
-  options:
-    ground:
-      name: Ground
-    sky:
-      name: Sky
-    water:
-      name: Water
-expected:
-  name: Expected value
-  options:
-    walk:
-      name: Walks
-      if: 'place.ground'
-    fly:
-      name: Flies
-      if: 'place.sky && animal.bird'
-    swim:
-      name: Swims
-      if: 'place.water'
-    dance:
-      name: Dances
+elements:
+  animal:
+    name: Bear
+    options:
+      bear:
+        name: Bear
+        if: '!season.winter && !place.sky'
+      bird:
+        name: Bird
+        if: '!place.water'
+      fish:
+        name: Fish
+        if: '!place.ground'
+  season:
+    name: Season
+    options:
+      spring:
+        name: Spring
+      summer:
+        name: Summer
+      autumn:
+        name: Autumn
+      winter:
+        name: Winter
+  place:
+    name: Place
+    options:
+      ground:
+        name: Ground
+      sky:
+        name: Sky
+      water:
+        name: Water
+  expected:
+    name: Expected value
+    options:
+      walk:
+        name: Walks
+        if: 'place.ground'
+      fly:
+        name: Flies
+        if: 'place.sky && animal.bird'
+      swim:
+        name: Swims
+        if: 'place.water'
+      dance:
+        name: Dances
