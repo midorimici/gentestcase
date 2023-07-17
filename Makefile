@@ -10,4 +10,4 @@ build:
 	@go build -o gentestcase cmd/gentestcase/main.go
 
 schema:
-	@go run cmd/schema/main.go
+	@go run cmd/schema/main.go $(ARGS)
