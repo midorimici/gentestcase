@@ -73,6 +73,7 @@
         },
         "if": {
           "type": "string",
+          "title": "Condition",
           "description": "Condition to output the option",
           "examples": [
             "element1.option_id \u0026\u0026 !element2.option_id"
