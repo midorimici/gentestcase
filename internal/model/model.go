@@ -12,7 +12,7 @@ type Option struct {
 
 	// If represents condition to output the option.
 	// example: element1.option_id && !element2.option_id
-	If string `json:"if" jsonschema:"title=Condition,description=Condition to output the option,example=element1.option_id && !element2.option_id"`
+	If string `json:"if" jsonschema:",title=Condition,description=Condition to output the option,example=element1.option_id && !element2.option_id"`
 }
 
 type Combination map[string]string
