@@ -13,7 +13,7 @@ import (
 )
 
 type data struct {
-	Data            model.Data
+	Data            *model.Data
 	OrderedElements []string
 	OptionOrders    map[string]map[string]int
 }
@@ -38,9 +38,9 @@ func (l *loader) Load() (*data, error) {
 		log.Fatal(err)
 	}
 
-	d := model.Data{}
+	d := &model.Data{}
 
-	if err := yaml.Unmarshal(bytes, d); err != nil {
+	if err := yaml.Unmarshal(bytes, &d); err != nil {
 		return nil, fmt.Errorf("%s: %w", funcName, err)
 	}
 
@@ -70,7 +70,7 @@ func readInput(f io.Reader) ([]byte, error) {
 }
 
 func orderedElements(fileStr string) ([]string, error) {
-	re := regexp.MustCompile(`(?:^|\n)([^ \n]+):\n`)
+	re := regexp.MustCompile(`\n  ([^ \n]+):\n`)
 	matches := re.FindAllStringSubmatch(fileStr, -1)
 	if matches == nil {
 		return nil, fmt.Errorf("orderedElements: failed")
@@ -85,7 +85,7 @@ func orderedElements(fileStr string) ([]string, error) {
 }
 
 func optionOrders(fileStr string, elements []string) (map[string]map[string]int, error) {
-	re := regexp.MustCompile(`\n    ([^ \n]+):\n`)
+	re := regexp.MustCompile(`\n      ([^ \n]+):\n`)
 	matches := re.FindAllStringSubmatch(fileStr, -1)
 	if matches == nil {
 		return nil, fmt.Errorf("optionOrders: failed")
@@ -96,7 +96,7 @@ func optionOrders(fileStr string, elements []string) (map[string]map[string]int,
 		return nil, fmt.Errorf("optionOrders: failed")
 	}
 
-	elemRe := regexp.MustCompile(fmt.Sprintf(`(?:^|\n)(?:%s):\n`, strings.Join(elements, "|")))
+	elemRe := regexp.MustCompile(fmt.Sprintf(`\n  (?:%s):\n`, strings.Join(elements, "|")))
 	elemLocs := elemRe.FindAllStringIndex(fileStr, -1)
 	if elemLocs == nil {
 		return nil, fmt.Errorf("optionOrders: failed")
