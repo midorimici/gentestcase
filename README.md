@@ -66,9 +66,9 @@ exp ::= value_bool (' ' operator ' ' value_bool)+
 operator ::= '&&' | '||'
 value_bool ::= value | '!' value
 value ::= element '.' option | '$' condition_ref
-element ::= text
-option ::= text
-condition_ref ::= text
+element ::= [a-zA-Z0-9_]+
+option ::= [a-zA-Z0-9_]+
+condition_ref ::= [a-zA-Z0-9_]+
 ```
 
 You can generate JSON schema with the following command to validate your YAML files.
