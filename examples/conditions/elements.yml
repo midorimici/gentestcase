@@ -1,0 +1,135 @@
+# yaml-language-server: $schema=../../schema.json
+
+elements:
+  day_of_week:
+    name: Day of the week
+    options:
+      sun:
+        name: Sunday
+      mon:
+        name: Monday
+      tue:
+        name: Tuesday
+      wed:
+        name: Wednesday
+      thu:
+        name: Thursday
+      fri:
+        name: Friday
+      sat:
+        name: Saturday
+  day_type:
+    name: Day type
+    options:
+      public_holiday:
+        name: Public holiday
+      normal:
+        name: Normal day
+  time:
+    name: Time
+    options:
+      0_8:
+        name: 0-8 o'clock
+      8_9:
+        name: 8-9 o'clock
+      9_12:
+        name: 9-12 o'clock
+      12_13:
+        name: 12-13 o'clock
+      13_16:
+        name: 13-16 o'clock
+      16_19:
+        name: 16-19 o'clock
+      19_20:
+        name: 19-20 o'clock
+      20_24:
+        name: 20-24 o'clock
+  test_target:
+    name: Test target
+    options:
+      state:
+        name: State
+      action:
+        name: Action
+  expected:
+    name: Expected value
+    options:
+      # states
+      hungry:
+        name: Hungry
+        if: 'test_target.state && time.16_19'
+      not_hungry:
+        name: Not hungry
+        if: 'test_target.state && !time.16_19'
+      tired:
+        name: Tired
+        if: 'test_target.state && $is_tired'
+      not_tired:
+        name: Not tired
+        if: 'test_target.state && !$is_tired'
+      sleepy:
+        name: Sleepy
+        if: 'test_target.state && $is_sleepy'
+      not_sleepy:
+        name: Not sleepy
+        if: 'test_target.state && !$is_sleepy'
+      happy:
+        name: Happy
+        if: >-
+          test_target.state &&
+          (($is_holiday && (time.12_13 || time.19_20)) ||
+          (day_of_week.fri && (time.19_20 || time.20_24)))
+      joyful:
+        name: Joyful
+        if: >-
+          test_target.state &&
+          (($is_weekend && (time.9_12 || time.13_16)) ||
+          (day_type.public_holiday && $is_active_time))
+
+      # actions
+      working:
+        name: Working
+        if: 'test_target.action && !$is_holiday && $is_working_time && !$is_busy'
+      working_hard:
+        name: Working hard
+        if: 'test_target.action && $is_working_time && $is_busy && !$is_very_busy'
+      working_very_hard:
+        name: Working very hard
+        if: 'test_target.action && $is_working_time && $is_very_busy'
+      sleeping:
+        name: Sleeping
+        if: 'test_target.action && time.0_8'
+      breakfast:
+        name: Having breakfast
+        if: 'test_target.action && time.8_9'
+      lunch:
+        name: Having lunch
+        if: 'test_target.action && time.12_13'
+      dinner:
+        name: Having dinner
+        if: 'test_target.action && time.19_20'
+      reading:
+        name: Reading a book
+        if: 'test_target.action && time.20_24'
+      tennis:
+        name: Playing tennis
+        if: 'test_target.action && $is_weekend && !day_type.public_holiday && time.13_16'
+      trip:
+        name: Going on a trip
+        if: 'test_target.action && day_type.public_holiday && $is_active_time'
+
+conditions:
+  is_weekend: 'day_of_week.sun || day_of_week.sat'
+  is_holiday: '$is_weekend || day_type.public_holiday'
+  is_busy_day: '!$is_holiday && (day_of_week.mon || day_of_week.thu)'
+  is_free_day: '!$is_holiday && day_of_week.wed'
+  is_busy_time: '!$is_holiday && time.13_16'
+  is_working_time: 'time.9_12 || time.13_16 || time.16_19'
+  is_busy: '$is_busy_day || ($is_busy_time && !$is_free_day)'
+  is_very_busy: '$is_busy_day && $is_busy_time'
+  is_tired: >-
+    !$is_holiday &&
+    (($is_busy_day && (time.9_12 || time.16_19)) ||
+    (!$is_busy_day && time.16_19))
+  is_sleepy: 'time.0_8 || time.20_24 || ($is_free_day && !$is_busy_time)'
+  is_active_time: 'time.9_12 || time.12_13 || time.13_16 || time.16_19 || time.19_20'

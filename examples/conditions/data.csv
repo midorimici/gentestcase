@@ -1,0 +1,519 @@
+Day of the week,Day type,Time,Test target,Expected value
+Sunday,Public holiday,0-8 o'clock,State,Not hungry
+Sunday,Public holiday,0-8 o'clock,State,Not tired
+Sunday,Public holiday,0-8 o'clock,State,Sleepy
+Sunday,Public holiday,0-8 o'clock,Action,Sleeping
+Sunday,Public holiday,8-9 o'clock,State,Not hungry
+Sunday,Public holiday,8-9 o'clock,State,Not tired
+Sunday,Public holiday,8-9 o'clock,State,Not sleepy
+Sunday,Public holiday,8-9 o'clock,Action,Having breakfast
+Sunday,Public holiday,9-12 o'clock,State,Not hungry
+Sunday,Public holiday,9-12 o'clock,State,Not tired
+Sunday,Public holiday,9-12 o'clock,State,Not sleepy
+Sunday,Public holiday,9-12 o'clock,State,Joyful
+Sunday,Public holiday,9-12 o'clock,Action,Going on a trip
+Sunday,Public holiday,12-13 o'clock,State,Not hungry
+Sunday,Public holiday,12-13 o'clock,State,Not tired
+Sunday,Public holiday,12-13 o'clock,State,Not sleepy
+Sunday,Public holiday,12-13 o'clock,State,Happy
+Sunday,Public holiday,12-13 o'clock,State,Joyful
+Sunday,Public holiday,12-13 o'clock,Action,Having lunch
+Sunday,Public holiday,12-13 o'clock,Action,Going on a trip
+Sunday,Public holiday,13-16 o'clock,State,Not hungry
+Sunday,Public holiday,13-16 o'clock,State,Not tired
+Sunday,Public holiday,13-16 o'clock,State,Not sleepy
+Sunday,Public holiday,13-16 o'clock,State,Joyful
+Sunday,Public holiday,13-16 o'clock,Action,Going on a trip
+Sunday,Public holiday,16-19 o'clock,State,Hungry
+Sunday,Public holiday,16-19 o'clock,State,Not tired
+Sunday,Public holiday,16-19 o'clock,State,Not sleepy
+Sunday,Public holiday,16-19 o'clock,State,Joyful
+Sunday,Public holiday,16-19 o'clock,Action,Going on a trip
+Sunday,Public holiday,19-20 o'clock,State,Not hungry
+Sunday,Public holiday,19-20 o'clock,State,Not tired
+Sunday,Public holiday,19-20 o'clock,State,Not sleepy
+Sunday,Public holiday,19-20 o'clock,State,Happy
+Sunday,Public holiday,19-20 o'clock,State,Joyful
+Sunday,Public holiday,19-20 o'clock,Action,Having dinner
+Sunday,Public holiday,19-20 o'clock,Action,Going on a trip
+Sunday,Public holiday,20-24 o'clock,State,Not hungry
+Sunday,Public holiday,20-24 o'clock,State,Not tired
+Sunday,Public holiday,20-24 o'clock,State,Sleepy
+Sunday,Public holiday,20-24 o'clock,Action,Reading a book
+Sunday,Normal day,0-8 o'clock,State,Not hungry
+Sunday,Normal day,0-8 o'clock,State,Not tired
+Sunday,Normal day,0-8 o'clock,State,Sleepy
+Sunday,Normal day,0-8 o'clock,Action,Sleeping
+Sunday,Normal day,8-9 o'clock,State,Not hungry
+Sunday,Normal day,8-9 o'clock,State,Not tired
+Sunday,Normal day,8-9 o'clock,State,Not sleepy
+Sunday,Normal day,8-9 o'clock,Action,Having breakfast
+Sunday,Normal day,9-12 o'clock,State,Not hungry
+Sunday,Normal day,9-12 o'clock,State,Not tired
+Sunday,Normal day,9-12 o'clock,State,Not sleepy
+Sunday,Normal day,9-12 o'clock,State,Joyful
+Sunday,Normal day,12-13 o'clock,State,Not hungry
+Sunday,Normal day,12-13 o'clock,State,Not tired
+Sunday,Normal day,12-13 o'clock,State,Not sleepy
+Sunday,Normal day,12-13 o'clock,State,Happy
+Sunday,Normal day,12-13 o'clock,Action,Having lunch
+Sunday,Normal day,13-16 o'clock,State,Not hungry
+Sunday,Normal day,13-16 o'clock,State,Not tired
+Sunday,Normal day,13-16 o'clock,State,Not sleepy
+Sunday,Normal day,13-16 o'clock,State,Joyful
+Sunday,Normal day,13-16 o'clock,Action,Playing tennis
+Sunday,Normal day,16-19 o'clock,State,Hungry
+Sunday,Normal day,16-19 o'clock,State,Not tired
+Sunday,Normal day,16-19 o'clock,State,Not sleepy
+Sunday,Normal day,19-20 o'clock,State,Not hungry
+Sunday,Normal day,19-20 o'clock,State,Not tired
+Sunday,Normal day,19-20 o'clock,State,Not sleepy
+Sunday,Normal day,19-20 o'clock,State,Happy
+Sunday,Normal day,19-20 o'clock,Action,Having dinner
+Sunday,Normal day,20-24 o'clock,State,Not hungry
+Sunday,Normal day,20-24 o'clock,State,Not tired
+Sunday,Normal day,20-24 o'clock,State,Sleepy
+Sunday,Normal day,20-24 o'clock,Action,Reading a book
+Monday,Public holiday,0-8 o'clock,State,Not hungry
+Monday,Public holiday,0-8 o'clock,State,Not tired
+Monday,Public holiday,0-8 o'clock,State,Sleepy
+Monday,Public holiday,0-8 o'clock,Action,Sleeping
+Monday,Public holiday,8-9 o'clock,State,Not hungry
+Monday,Public holiday,8-9 o'clock,State,Not tired
+Monday,Public holiday,8-9 o'clock,State,Not sleepy
+Monday,Public holiday,8-9 o'clock,Action,Having breakfast
+Monday,Public holiday,9-12 o'clock,State,Not hungry
+Monday,Public holiday,9-12 o'clock,State,Not tired
+Monday,Public holiday,9-12 o'clock,State,Not sleepy
+Monday,Public holiday,9-12 o'clock,State,Joyful
+Monday,Public holiday,9-12 o'clock,Action,Going on a trip
+Monday,Public holiday,12-13 o'clock,State,Not hungry
+Monday,Public holiday,12-13 o'clock,State,Not tired
+Monday,Public holiday,12-13 o'clock,State,Not sleepy
+Monday,Public holiday,12-13 o'clock,State,Happy
+Monday,Public holiday,12-13 o'clock,State,Joyful
+Monday,Public holiday,12-13 o'clock,Action,Having lunch
+Monday,Public holiday,12-13 o'clock,Action,Going on a trip
+Monday,Public holiday,13-16 o'clock,State,Not hungry
+Monday,Public holiday,13-16 o'clock,State,Not tired
+Monday,Public holiday,13-16 o'clock,State,Not sleepy
+Monday,Public holiday,13-16 o'clock,State,Joyful
+Monday,Public holiday,13-16 o'clock,Action,Going on a trip
+Monday,Public holiday,16-19 o'clock,State,Hungry
+Monday,Public holiday,16-19 o'clock,State,Not tired
+Monday,Public holiday,16-19 o'clock,State,Not sleepy
+Monday,Public holiday,16-19 o'clock,State,Joyful
+Monday,Public holiday,16-19 o'clock,Action,Going on a trip
+Monday,Public holiday,19-20 o'clock,State,Not hungry
+Monday,Public holiday,19-20 o'clock,State,Not tired
+Monday,Public holiday,19-20 o'clock,State,Not sleepy
+Monday,Public holiday,19-20 o'clock,State,Happy
+Monday,Public holiday,19-20 o'clock,State,Joyful
+Monday,Public holiday,19-20 o'clock,Action,Having dinner
+Monday,Public holiday,19-20 o'clock,Action,Going on a trip
+Monday,Public holiday,20-24 o'clock,State,Not hungry
+Monday,Public holiday,20-24 o'clock,State,Not tired
+Monday,Public holiday,20-24 o'clock,State,Sleepy
+Monday,Public holiday,20-24 o'clock,Action,Reading a book
+Monday,Normal day,0-8 o'clock,State,Not hungry
+Monday,Normal day,0-8 o'clock,State,Not tired
+Monday,Normal day,0-8 o'clock,State,Sleepy
+Monday,Normal day,0-8 o'clock,Action,Sleeping
+Monday,Normal day,8-9 o'clock,State,Not hungry
+Monday,Normal day,8-9 o'clock,State,Not tired
+Monday,Normal day,8-9 o'clock,State,Not sleepy
+Monday,Normal day,8-9 o'clock,Action,Having breakfast
+Monday,Normal day,9-12 o'clock,State,Not hungry
+Monday,Normal day,9-12 o'clock,State,Tired
+Monday,Normal day,9-12 o'clock,State,Not sleepy
+Monday,Normal day,9-12 o'clock,Action,Working hard
+Monday,Normal day,12-13 o'clock,State,Not hungry
+Monday,Normal day,12-13 o'clock,State,Not tired
+Monday,Normal day,12-13 o'clock,State,Not sleepy
+Monday,Normal day,12-13 o'clock,Action,Having lunch
+Monday,Normal day,13-16 o'clock,State,Not hungry
+Monday,Normal day,13-16 o'clock,State,Not tired
+Monday,Normal day,13-16 o'clock,State,Not sleepy
+Monday,Normal day,13-16 o'clock,Action,Working very hard
+Monday,Normal day,16-19 o'clock,State,Hungry
+Monday,Normal day,16-19 o'clock,State,Tired
+Monday,Normal day,16-19 o'clock,State,Not sleepy
+Monday,Normal day,16-19 o'clock,Action,Working hard
+Monday,Normal day,19-20 o'clock,State,Not hungry
+Monday,Normal day,19-20 o'clock,State,Not tired
+Monday,Normal day,19-20 o'clock,State,Not sleepy
+Monday,Normal day,19-20 o'clock,Action,Having dinner
+Monday,Normal day,20-24 o'clock,State,Not hungry
+Monday,Normal day,20-24 o'clock,State,Not tired
+Monday,Normal day,20-24 o'clock,State,Sleepy
+Monday,Normal day,20-24 o'clock,Action,Reading a book
+Tuesday,Public holiday,0-8 o'clock,State,Not hungry
+Tuesday,Public holiday,0-8 o'clock,State,Not tired
+Tuesday,Public holiday,0-8 o'clock,State,Sleepy
+Tuesday,Public holiday,0-8 o'clock,Action,Sleeping
+Tuesday,Public holiday,8-9 o'clock,State,Not hungry
+Tuesday,Public holiday,8-9 o'clock,State,Not tired
+Tuesday,Public holiday,8-9 o'clock,State,Not sleepy
+Tuesday,Public holiday,8-9 o'clock,Action,Having breakfast
+Tuesday,Public holiday,9-12 o'clock,State,Not hungry
+Tuesday,Public holiday,9-12 o'clock,State,Not tired
+Tuesday,Public holiday,9-12 o'clock,State,Not sleepy
+Tuesday,Public holiday,9-12 o'clock,State,Joyful
+Tuesday,Public holiday,9-12 o'clock,Action,Going on a trip
+Tuesday,Public holiday,12-13 o'clock,State,Not hungry
+Tuesday,Public holiday,12-13 o'clock,State,Not tired
+Tuesday,Public holiday,12-13 o'clock,State,Not sleepy
+Tuesday,Public holiday,12-13 o'clock,State,Happy
+Tuesday,Public holiday,12-13 o'clock,State,Joyful
+Tuesday,Public holiday,12-13 o'clock,Action,Having lunch
+Tuesday,Public holiday,12-13 o'clock,Action,Going on a trip
+Tuesday,Public holiday,13-16 o'clock,State,Not hungry
+Tuesday,Public holiday,13-16 o'clock,State,Not tired
+Tuesday,Public holiday,13-16 o'clock,State,Not sleepy
+Tuesday,Public holiday,13-16 o'clock,State,Joyful
+Tuesday,Public holiday,13-16 o'clock,Action,Going on a trip
+Tuesday,Public holiday,16-19 o'clock,State,Hungry
+Tuesday,Public holiday,16-19 o'clock,State,Not tired
+Tuesday,Public holiday,16-19 o'clock,State,Not sleepy
+Tuesday,Public holiday,16-19 o'clock,State,Joyful
+Tuesday,Public holiday,16-19 o'clock,Action,Going on a trip
+Tuesday,Public holiday,19-20 o'clock,State,Not hungry
+Tuesday,Public holiday,19-20 o'clock,State,Not tired
+Tuesday,Public holiday,19-20 o'clock,State,Not sleepy
+Tuesday,Public holiday,19-20 o'clock,State,Happy
+Tuesday,Public holiday,19-20 o'clock,State,Joyful
+Tuesday,Public holiday,19-20 o'clock,Action,Having dinner
+Tuesday,Public holiday,19-20 o'clock,Action,Going on a trip
+Tuesday,Public holiday,20-24 o'clock,State,Not hungry
+Tuesday,Public holiday,20-24 o'clock,State,Not tired
+Tuesday,Public holiday,20-24 o'clock,State,Sleepy
+Tuesday,Public holiday,20-24 o'clock,Action,Reading a book
+Tuesday,Normal day,0-8 o'clock,State,Not hungry
+Tuesday,Normal day,0-8 o'clock,State,Not tired
+Tuesday,Normal day,0-8 o'clock,State,Sleepy
+Tuesday,Normal day,0-8 o'clock,Action,Sleeping
+Tuesday,Normal day,8-9 o'clock,State,Not hungry
+Tuesday,Normal day,8-9 o'clock,State,Not tired
+Tuesday,Normal day,8-9 o'clock,State,Not sleepy
+Tuesday,Normal day,8-9 o'clock,Action,Having breakfast
+Tuesday,Normal day,9-12 o'clock,State,Not hungry
+Tuesday,Normal day,9-12 o'clock,State,Not tired
+Tuesday,Normal day,9-12 o'clock,State,Not sleepy
+Tuesday,Normal day,9-12 o'clock,Action,Working
+Tuesday,Normal day,12-13 o'clock,State,Not hungry
+Tuesday,Normal day,12-13 o'clock,State,Not tired
+Tuesday,Normal day,12-13 o'clock,State,Not sleepy
+Tuesday,Normal day,12-13 o'clock,Action,Having lunch
+Tuesday,Normal day,13-16 o'clock,State,Not hungry
+Tuesday,Normal day,13-16 o'clock,State,Not tired
+Tuesday,Normal day,13-16 o'clock,State,Not sleepy
+Tuesday,Normal day,13-16 o'clock,Action,Working hard
+Tuesday,Normal day,16-19 o'clock,State,Hungry
+Tuesday,Normal day,16-19 o'clock,State,Tired
+Tuesday,Normal day,16-19 o'clock,State,Not sleepy
+Tuesday,Normal day,16-19 o'clock,Action,Working
+Tuesday,Normal day,19-20 o'clock,State,Not hungry
+Tuesday,Normal day,19-20 o'clock,State,Not tired
+Tuesday,Normal day,19-20 o'clock,State,Not sleepy
+Tuesday,Normal day,19-20 o'clock,Action,Having dinner
+Tuesday,Normal day,20-24 o'clock,State,Not hungry
+Tuesday,Normal day,20-24 o'clock,State,Not tired
+Tuesday,Normal day,20-24 o'clock,State,Sleepy
+Tuesday,Normal day,20-24 o'clock,Action,Reading a book
+Wednesday,Public holiday,0-8 o'clock,State,Not hungry
+Wednesday,Public holiday,0-8 o'clock,State,Not tired
+Wednesday,Public holiday,0-8 o'clock,State,Sleepy
+Wednesday,Public holiday,0-8 o'clock,Action,Sleeping
+Wednesday,Public holiday,8-9 o'clock,State,Not hungry
+Wednesday,Public holiday,8-9 o'clock,State,Not tired
+Wednesday,Public holiday,8-9 o'clock,State,Not sleepy
+Wednesday,Public holiday,8-9 o'clock,Action,Having breakfast
+Wednesday,Public holiday,9-12 o'clock,State,Not hungry
+Wednesday,Public holiday,9-12 o'clock,State,Not tired
+Wednesday,Public holiday,9-12 o'clock,State,Not sleepy
+Wednesday,Public holiday,9-12 o'clock,State,Joyful
+Wednesday,Public holiday,9-12 o'clock,Action,Going on a trip
+Wednesday,Public holiday,12-13 o'clock,State,Not hungry
+Wednesday,Public holiday,12-13 o'clock,State,Not tired
+Wednesday,Public holiday,12-13 o'clock,State,Not sleepy
+Wednesday,Public holiday,12-13 o'clock,State,Happy
+Wednesday,Public holiday,12-13 o'clock,State,Joyful
+Wednesday,Public holiday,12-13 o'clock,Action,Having lunch
+Wednesday,Public holiday,12-13 o'clock,Action,Going on a trip
+Wednesday,Public holiday,13-16 o'clock,State,Not hungry
+Wednesday,Public holiday,13-16 o'clock,State,Not tired
+Wednesday,Public holiday,13-16 o'clock,State,Not sleepy
+Wednesday,Public holiday,13-16 o'clock,State,Joyful
+Wednesday,Public holiday,13-16 o'clock,Action,Going on a trip
+Wednesday,Public holiday,16-19 o'clock,State,Hungry
+Wednesday,Public holiday,16-19 o'clock,State,Not tired
+Wednesday,Public holiday,16-19 o'clock,State,Not sleepy
+Wednesday,Public holiday,16-19 o'clock,State,Joyful
+Wednesday,Public holiday,16-19 o'clock,Action,Going on a trip
+Wednesday,Public holiday,19-20 o'clock,State,Not hungry
+Wednesday,Public holiday,19-20 o'clock,State,Not tired
+Wednesday,Public holiday,19-20 o'clock,State,Not sleepy
+Wednesday,Public holiday,19-20 o'clock,State,Happy
+Wednesday,Public holiday,19-20 o'clock,State,Joyful
+Wednesday,Public holiday,19-20 o'clock,Action,Having dinner
+Wednesday,Public holiday,19-20 o'clock,Action,Going on a trip
+Wednesday,Public holiday,20-24 o'clock,State,Not hungry
+Wednesday,Public holiday,20-24 o'clock,State,Not tired
+Wednesday,Public holiday,20-24 o'clock,State,Sleepy
+Wednesday,Public holiday,20-24 o'clock,Action,Reading a book
+Wednesday,Normal day,0-8 o'clock,State,Not hungry
+Wednesday,Normal day,0-8 o'clock,State,Not tired
+Wednesday,Normal day,0-8 o'clock,State,Sleepy
+Wednesday,Normal day,0-8 o'clock,Action,Sleeping
+Wednesday,Normal day,8-9 o'clock,State,Not hungry
+Wednesday,Normal day,8-9 o'clock,State,Not tired
+Wednesday,Normal day,8-9 o'clock,State,Sleepy
+Wednesday,Normal day,8-9 o'clock,Action,Having breakfast
+Wednesday,Normal day,9-12 o'clock,State,Not hungry
+Wednesday,Normal day,9-12 o'clock,State,Not tired
+Wednesday,Normal day,9-12 o'clock,State,Sleepy
+Wednesday,Normal day,9-12 o'clock,Action,Working
+Wednesday,Normal day,12-13 o'clock,State,Not hungry
+Wednesday,Normal day,12-13 o'clock,State,Not tired
+Wednesday,Normal day,12-13 o'clock,State,Sleepy
+Wednesday,Normal day,12-13 o'clock,Action,Having lunch
+Wednesday,Normal day,13-16 o'clock,State,Not hungry
+Wednesday,Normal day,13-16 o'clock,State,Not tired
+Wednesday,Normal day,13-16 o'clock,State,Not sleepy
+Wednesday,Normal day,13-16 o'clock,Action,Working
+Wednesday,Normal day,16-19 o'clock,State,Hungry
+Wednesday,Normal day,16-19 o'clock,State,Tired
+Wednesday,Normal day,16-19 o'clock,State,Sleepy
+Wednesday,Normal day,16-19 o'clock,Action,Working
+Wednesday,Normal day,19-20 o'clock,State,Not hungry
+Wednesday,Normal day,19-20 o'clock,State,Not tired
+Wednesday,Normal day,19-20 o'clock,State,Sleepy
+Wednesday,Normal day,19-20 o'clock,Action,Having dinner
+Wednesday,Normal day,20-24 o'clock,State,Not hungry
+Wednesday,Normal day,20-24 o'clock,State,Not tired
+Wednesday,Normal day,20-24 o'clock,State,Sleepy
+Wednesday,Normal day,20-24 o'clock,Action,Reading a book
+Thursday,Public holiday,0-8 o'clock,State,Not hungry
+Thursday,Public holiday,0-8 o'clock,State,Not tired
+Thursday,Public holiday,0-8 o'clock,State,Sleepy
+Thursday,Public holiday,0-8 o'clock,Action,Sleeping
+Thursday,Public holiday,8-9 o'clock,State,Not hungry
+Thursday,Public holiday,8-9 o'clock,State,Not tired
+Thursday,Public holiday,8-9 o'clock,State,Not sleepy
+Thursday,Public holiday,8-9 o'clock,Action,Having breakfast
+Thursday,Public holiday,9-12 o'clock,State,Not hungry
+Thursday,Public holiday,9-12 o'clock,State,Not tired
+Thursday,Public holiday,9-12 o'clock,State,Not sleepy
+Thursday,Public holiday,9-12 o'clock,State,Joyful
+Thursday,Public holiday,9-12 o'clock,Action,Going on a trip
+Thursday,Public holiday,12-13 o'clock,State,Not hungry
+Thursday,Public holiday,12-13 o'clock,State,Not tired
+Thursday,Public holiday,12-13 o'clock,State,Not sleepy
+Thursday,Public holiday,12-13 o'clock,State,Happy
+Thursday,Public holiday,12-13 o'clock,State,Joyful
+Thursday,Public holiday,12-13 o'clock,Action,Having lunch
+Thursday,Public holiday,12-13 o'clock,Action,Going on a trip
+Thursday,Public holiday,13-16 o'clock,State,Not hungry
+Thursday,Public holiday,13-16 o'clock,State,Not tired
+Thursday,Public holiday,13-16 o'clock,State,Not sleepy
+Thursday,Public holiday,13-16 o'clock,State,Joyful
+Thursday,Public holiday,13-16 o'clock,Action,Going on a trip
+Thursday,Public holiday,16-19 o'clock,State,Hungry
+Thursday,Public holiday,16-19 o'clock,State,Not tired
+Thursday,Public holiday,16-19 o'clock,State,Not sleepy
+Thursday,Public holiday,16-19 o'clock,State,Joyful
+Thursday,Public holiday,16-19 o'clock,Action,Going on a trip
+Thursday,Public holiday,19-20 o'clock,State,Not hungry
+Thursday,Public holiday,19-20 o'clock,State,Not tired
+Thursday,Public holiday,19-20 o'clock,State,Not sleepy
+Thursday,Public holiday,19-20 o'clock,State,Happy
+Thursday,Public holiday,19-20 o'clock,State,Joyful
+Thursday,Public holiday,19-20 o'clock,Action,Having dinner
+Thursday,Public holiday,19-20 o'clock,Action,Going on a trip
+Thursday,Public holiday,20-24 o'clock,State,Not hungry
+Thursday,Public holiday,20-24 o'clock,State,Not tired
+Thursday,Public holiday,20-24 o'clock,State,Sleepy
+Thursday,Public holiday,20-24 o'clock,Action,Reading a book
+Thursday,Normal day,0-8 o'clock,State,Not hungry
+Thursday,Normal day,0-8 o'clock,State,Not tired
+Thursday,Normal day,0-8 o'clock,State,Sleepy
+Thursday,Normal day,0-8 o'clock,Action,Sleeping
+Thursday,Normal day,8-9 o'clock,State,Not hungry
+Thursday,Normal day,8-9 o'clock,State,Not tired
+Thursday,Normal day,8-9 o'clock,State,Not sleepy
+Thursday,Normal day,8-9 o'clock,Action,Having breakfast
+Thursday,Normal day,9-12 o'clock,State,Not hungry
+Thursday,Normal day,9-12 o'clock,State,Tired
+Thursday,Normal day,9-12 o'clock,State,Not sleepy
+Thursday,Normal day,9-12 o'clock,Action,Working hard
+Thursday,Normal day,12-13 o'clock,State,Not hungry
+Thursday,Normal day,12-13 o'clock,State,Not tired
+Thursday,Normal day,12-13 o'clock,State,Not sleepy
+Thursday,Normal day,12-13 o'clock,Action,Having lunch
+Thursday,Normal day,13-16 o'clock,State,Not hungry
+Thursday,Normal day,13-16 o'clock,State,Not tired
+Thursday,Normal day,13-16 o'clock,State,Not sleepy
+Thursday,Normal day,13-16 o'clock,Action,Working very hard
+Thursday,Normal day,16-19 o'clock,State,Hungry
+Thursday,Normal day,16-19 o'clock,State,Tired
+Thursday,Normal day,16-19 o'clock,State,Not sleepy
+Thursday,Normal day,16-19 o'clock,Action,Working hard
+Thursday,Normal day,19-20 o'clock,State,Not hungry
+Thursday,Normal day,19-20 o'clock,State,Not tired
+Thursday,Normal day,19-20 o'clock,State,Not sleepy
+Thursday,Normal day,19-20 o'clock,Action,Having dinner
+Thursday,Normal day,20-24 o'clock,State,Not hungry
+Thursday,Normal day,20-24 o'clock,State,Not tired
+Thursday,Normal day,20-24 o'clock,State,Sleepy
+Thursday,Normal day,20-24 o'clock,Action,Reading a book
+Friday,Public holiday,0-8 o'clock,State,Not hungry
+Friday,Public holiday,0-8 o'clock,State,Not tired
+Friday,Public holiday,0-8 o'clock,State,Sleepy
+Friday,Public holiday,0-8 o'clock,Action,Sleeping
+Friday,Public holiday,8-9 o'clock,State,Not hungry
+Friday,Public holiday,8-9 o'clock,State,Not tired
+Friday,Public holiday,8-9 o'clock,State,Not sleepy
+Friday,Public holiday,8-9 o'clock,Action,Having breakfast
+Friday,Public holiday,9-12 o'clock,State,Not hungry
+Friday,Public holiday,9-12 o'clock,State,Not tired
+Friday,Public holiday,9-12 o'clock,State,Not sleepy
+Friday,Public holiday,9-12 o'clock,State,Joyful
+Friday,Public holiday,9-12 o'clock,Action,Going on a trip
+Friday,Public holiday,12-13 o'clock,State,Not hungry
+Friday,Public holiday,12-13 o'clock,State,Not tired
+Friday,Public holiday,12-13 o'clock,State,Not sleepy
+Friday,Public holiday,12-13 o'clock,State,Happy
+Friday,Public holiday,12-13 o'clock,State,Joyful
+Friday,Public holiday,12-13 o'clock,Action,Having lunch
+Friday,Public holiday,12-13 o'clock,Action,Going on a trip
+Friday,Public holiday,13-16 o'clock,State,Not hungry
+Friday,Public holiday,13-16 o'clock,State,Not tired
+Friday,Public holiday,13-16 o'clock,State,Not sleepy
+Friday,Public holiday,13-16 o'clock,State,Joyful
+Friday,Public holiday,13-16 o'clock,Action,Going on a trip
+Friday,Public holiday,16-19 o'clock,State,Hungry
+Friday,Public holiday,16-19 o'clock,State,Not tired
+Friday,Public holiday,16-19 o'clock,State,Not sleepy
+Friday,Public holiday,16-19 o'clock,State,Joyful
+Friday,Public holiday,16-19 o'clock,Action,Going on a trip
+Friday,Public holiday,19-20 o'clock,State,Not hungry
+Friday,Public holiday,19-20 o'clock,State,Not tired
+Friday,Public holiday,19-20 o'clock,State,Not sleepy
+Friday,Public holiday,19-20 o'clock,State,Happy
+Friday,Public holiday,19-20 o'clock,State,Joyful
+Friday,Public holiday,19-20 o'clock,Action,Having dinner
+Friday,Public holiday,19-20 o'clock,Action,Going on a trip
+Friday,Public holiday,20-24 o'clock,State,Not hungry
+Friday,Public holiday,20-24 o'clock,State,Not tired
+Friday,Public holiday,20-24 o'clock,State,Sleepy
+Friday,Public holiday,20-24 o'clock,State,Happy
+Friday,Public holiday,20-24 o'clock,Action,Reading a book
+Friday,Normal day,0-8 o'clock,State,Not hungry
+Friday,Normal day,0-8 o'clock,State,Not tired
+Friday,Normal day,0-8 o'clock,State,Sleepy
+Friday,Normal day,0-8 o'clock,Action,Sleeping
+Friday,Normal day,8-9 o'clock,State,Not hungry
+Friday,Normal day,8-9 o'clock,State,Not tired
+Friday,Normal day,8-9 o'clock,State,Not sleepy
+Friday,Normal day,8-9 o'clock,Action,Having breakfast
+Friday,Normal day,9-12 o'clock,State,Not hungry
+Friday,Normal day,9-12 o'clock,State,Not tired
+Friday,Normal day,9-12 o'clock,State,Not sleepy
+Friday,Normal day,9-12 o'clock,Action,Working
+Friday,Normal day,12-13 o'clock,State,Not hungry
+Friday,Normal day,12-13 o'clock,State,Not tired
+Friday,Normal day,12-13 o'clock,State,Not sleepy
+Friday,Normal day,12-13 o'clock,Action,Having lunch
+Friday,Normal day,13-16 o'clock,State,Not hungry
+Friday,Normal day,13-16 o'clock,State,Not tired
+Friday,Normal day,13-16 o'clock,State,Not sleepy
+Friday,Normal day,13-16 o'clock,Action,Working hard
+Friday,Normal day,16-19 o'clock,State,Hungry
+Friday,Normal day,16-19 o'clock,State,Tired
+Friday,Normal day,16-19 o'clock,State,Not sleepy
+Friday,Normal day,16-19 o'clock,Action,Working
+Friday,Normal day,19-20 o'clock,State,Not hungry
+Friday,Normal day,19-20 o'clock,State,Not tired
+Friday,Normal day,19-20 o'clock,State,Not sleepy
+Friday,Normal day,19-20 o'clock,State,Happy
+Friday,Normal day,19-20 o'clock,Action,Having dinner
+Friday,Normal day,20-24 o'clock,State,Not hungry
+Friday,Normal day,20-24 o'clock,State,Not tired
+Friday,Normal day,20-24 o'clock,State,Sleepy
+Friday,Normal day,20-24 o'clock,State,Happy
+Friday,Normal day,20-24 o'clock,Action,Reading a book
+Saturday,Public holiday,0-8 o'clock,State,Not hungry
+Saturday,Public holiday,0-8 o'clock,State,Not tired
+Saturday,Public holiday,0-8 o'clock,State,Sleepy
+Saturday,Public holiday,0-8 o'clock,Action,Sleeping
+Saturday,Public holiday,8-9 o'clock,State,Not hungry
+Saturday,Public holiday,8-9 o'clock,State,Not tired
+Saturday,Public holiday,8-9 o'clock,State,Not sleepy
+Saturday,Public holiday,8-9 o'clock,Action,Having breakfast
+Saturday,Public holiday,9-12 o'clock,State,Not hungry
+Saturday,Public holiday,9-12 o'clock,State,Not tired
+Saturday,Public holiday,9-12 o'clock,State,Not sleepy
+Saturday,Public holiday,9-12 o'clock,State,Joyful
+Saturday,Public holiday,9-12 o'clock,Action,Going on a trip
+Saturday,Public holiday,12-13 o'clock,State,Not hungry
+Saturday,Public holiday,12-13 o'clock,State,Not tired
+Saturday,Public holiday,12-13 o'clock,State,Not sleepy
+Saturday,Public holiday,12-13 o'clock,State,Happy
+Saturday,Public holiday,12-13 o'clock,State,Joyful
+Saturday,Public holiday,12-13 o'clock,Action,Having lunch
+Saturday,Public holiday,12-13 o'clock,Action,Going on a trip
+Saturday,Public holiday,13-16 o'clock,State,Not hungry
+Saturday,Public holiday,13-16 o'clock,State,Not tired
+Saturday,Public holiday,13-16 o'clock,State,Not sleepy
+Saturday,Public holiday,13-16 o'clock,State,Joyful
+Saturday,Public holiday,13-16 o'clock,Action,Going on a trip
+Saturday,Public holiday,16-19 o'clock,State,Hungry
+Saturday,Public holiday,16-19 o'clock,State,Not tired
+Saturday,Public holiday,16-19 o'clock,State,Not sleepy
+Saturday,Public holiday,16-19 o'clock,State,Joyful
+Saturday,Public holiday,16-19 o'clock,Action,Going on a trip
+Saturday,Public holiday,19-20 o'clock,State,Not hungry
+Saturday,Public holiday,19-20 o'clock,State,Not tired
+Saturday,Public holiday,19-20 o'clock,State,Not sleepy
+Saturday,Public holiday,19-20 o'clock,State,Happy
+Saturday,Public holiday,19-20 o'clock,State,Joyful
+Saturday,Public holiday,19-20 o'clock,Action,Having dinner
+Saturday,Public holiday,19-20 o'clock,Action,Going on a trip
+Saturday,Public holiday,20-24 o'clock,State,Not hungry
+Saturday,Public holiday,20-24 o'clock,State,Not tired
+Saturday,Public holiday,20-24 o'clock,State,Sleepy
+Saturday,Public holiday,20-24 o'clock,Action,Reading a book
+Saturday,Normal day,0-8 o'clock,State,Not hungry
+Saturday,Normal day,0-8 o'clock,State,Not tired
+Saturday,Normal day,0-8 o'clock,State,Sleepy
+Saturday,Normal day,0-8 o'clock,Action,Sleeping
+Saturday,Normal day,8-9 o'clock,State,Not hungry
+Saturday,Normal day,8-9 o'clock,State,Not tired
+Saturday,Normal day,8-9 o'clock,State,Not sleepy
+Saturday,Normal day,8-9 o'clock,Action,Having breakfast
+Saturday,Normal day,9-12 o'clock,State,Not hungry
+Saturday,Normal day,9-12 o'clock,State,Not tired
+Saturday,Normal day,9-12 o'clock,State,Not sleepy
+Saturday,Normal day,9-12 o'clock,State,Joyful
+Saturday,Normal day,12-13 o'clock,State,Not hungry
+Saturday,Normal day,12-13 o'clock,State,Not tired
+Saturday,Normal day,12-13 o'clock,State,Not sleepy
+Saturday,Normal day,12-13 o'clock,State,Happy
+Saturday,Normal day,12-13 o'clock,Action,Having lunch
+Saturday,Normal day,13-16 o'clock,State,Not hungry
+Saturday,Normal day,13-16 o'clock,State,Not tired
+Saturday,Normal day,13-16 o'clock,State,Not sleepy
+Saturday,Normal day,13-16 o'clock,State,Joyful
+Saturday,Normal day,13-16 o'clock,Action,Playing tennis
+Saturday,Normal day,16-19 o'clock,State,Hungry
+Saturday,Normal day,16-19 o'clock,State,Not tired
+Saturday,Normal day,16-19 o'clock,State,Not sleepy
+Saturday,Normal day,19-20 o'clock,State,Not hungry
+Saturday,Normal day,19-20 o'clock,State,Not tired
+Saturday,Normal day,19-20 o'clock,State,Not sleepy
+Saturday,Normal day,19-20 o'clock,State,Happy
+Saturday,Normal day,19-20 o'clock,Action,Having dinner
+Saturday,Normal day,20-24 o'clock,State,Not hungry
+Saturday,Normal day,20-24 o'clock,State,Not tired
+Saturday,Normal day,20-24 o'clock,State,Sleepy
+Saturday,Normal day,20-24 o'clock,Action,Reading a book
