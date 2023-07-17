@@ -17,11 +17,13 @@ var (
 var (
 	parRe   *regexp.Regexp
 	valueRe *regexp.Regexp
+	refRe   *regexp.Regexp
 )
 
 func init() {
 	parRe = regexp.MustCompile(`^(!?)\((.+)\)$`)
 	valueRe = regexp.MustCompile(`(!?)(.+)\.(.+)`)
+	refRe = regexp.MustCompile(`(!?)\$([\w-]+)`)
 }
 
 type Parser interface {
@@ -155,7 +157,19 @@ func parseExpression(text string) (*expression, error) {
 func (p *parser) valueCondition(combination model.Combination, text string) (bool, error) {
 	v := valueRe.FindStringSubmatch(text)
 	if len(v) == 0 {
-		return false, fmt.Errorf(`parsing "%s": %w`, text, errParseFailed)
+		r := refRe.FindStringSubmatch(text)
+		if len(r) == 0 {
+			return false, fmt.Errorf(`parsing "%s": %w`, text, errParseFailed)
+		}
+		ref := r[2]
+		result, err := p.refCondition(combination, ref)
+		if err != nil {
+			return false, fmt.Errorf(`parsing "%s": %w`, text, err)
+		}
+		if r[1] == "!" {
+			return !result, nil
+		}
+		return result, nil
 	}
 
 	element := v[2]
@@ -174,6 +188,20 @@ func (p *parser) valueCondition(combination model.Combination, text string) (boo
 	result := option == combination[element]
 	if v[1] == "!" {
 		return !result, nil
+	}
+	return result, nil
+}
+
+func (p *parser) refCondition(combination model.Combination, ref string) (bool, error) {
+	const funcName = "refCondition"
+
+	exp, ok := p.data.Conditions[ref]
+	if !ok {
+		return false, fmt.Errorf(`%s: condition "%s" is not defined`, funcName, ref)
+	}
+	result, err := p.condition(combination, exp)
+	if err != nil {
+		return false, fmt.Errorf("%s: %w", funcName, err)
 	}
 	return result, nil
 }
