@@ -54,7 +54,8 @@ element2:
 Below is the EBNF for `if` field syntax.
 
 ```ebnf
-syntax ::= exp | group (' ' operator ' ' group)*
+syntax ::= exp | groups
+groups ::= group (' ' operator ' ' group)* | groups (' ' operator ' ' groups)*
 group ::= '(' exp ')' | '!(' exp ')' | value_bool
 exp ::= value_bool (' ' operator ' ' value_bool)+
 operator ::= '&&' | '||'
