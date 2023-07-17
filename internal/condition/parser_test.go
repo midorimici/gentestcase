@@ -13,8 +13,15 @@ func Test_parser_Parse(t *testing.T) {
 		"e2": {Options: map[string]model.Option{"d": {}, "e": {}, "f": {}}},
 		"e3": {Options: map[string]model.Option{"g": {}, "h": {}}},
 	}
+	refs := model.Conditions{
+		"c1": "e1.a",
+		"c2": "!e2.e",
+		"c3": "e3.h",
+		"c4": "$c1 && $c2",
+	}
 	data := &model.Data{
-		Elements: elems,
+		Elements:   elems,
+		Conditions: refs,
 	}
 	combination := model.Combination{"e1": "a", "e2": "d", "e3": "g"}
 
@@ -137,6 +144,36 @@ func Test_parser_Parse(t *testing.T) {
 			args: args{text: "(e1.a || e1.b) && !((!e2.d && !e2.e) || e3.h)"},
 			want: true,
 		},
+		{
+			name: "returns result as expected with matching single condition reference",
+			args: args{text: "$c1"},
+			want: true,
+		},
+		{
+			name: "returns result as expected with matching single condition reference with negation",
+			args: args{text: "!$c2"},
+			want: false,
+		},
+		{
+			name: "returns result as expected with unmatching single condition reference",
+			args: args{text: "$c3"},
+			want: false,
+		},
+		{
+			name: "returns result as expected with matching single condition reference which refers to other condition references",
+			args: args{text: "$c4"},
+			want: true,
+		},
+		{
+			name: "returns result as expected with multiple condition reference",
+			args: args{text: "$c1 && $c2"},
+			want: true,
+		},
+		{
+			name: "returns result as expected with condition reference and normal condition",
+			args: args{text: "e2.e || $c1"},
+			want: true,
+		},
 
 		// Abnormal
 		{
@@ -147,6 +184,11 @@ func Test_parser_Parse(t *testing.T) {
 		{
 			name:    "returns error with option which does not exist",
 			args:    args{text: "e1.c"},
+			wantErr: true,
+		},
+		{
+			name:    "returns error with condition reference which does not exist",
+			args:    args{text: "$ref"},
 			wantErr: true,
 		},
 		{
