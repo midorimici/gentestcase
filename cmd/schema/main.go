@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"flag"
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -18,6 +19,9 @@ func main() {
 
 	s := jsonschema.Reflect(&model.Data{})
 	restrictPropertyNames(s)
+	if err := addConditionPattern(s); err != nil {
+		log.Fatal(err)
+	}
 
 	if err := export(s); err != nil {
 		log.Fatal(err)
@@ -37,6 +41,24 @@ func restrictPropertyNames(s *jsonschema.Schema) {
 func restrictPropertyName(s *jsonschema.Schema) {
 	s.PatternProperties = map[string]*jsonschema.Schema{`^\w+$`: s.PatternProperties[".*"]}
 	s.AdditionalProperties = jsonschema.FalseSchema
+}
+
+func addConditionPattern(s *jsonschema.Schema) error {
+	const funcName = "addConditionPattern"
+	const condRe = `^[$!(\w][$!().\w&| ]+[\w)]$`
+
+	s.Definitions["Conditions"].PatternProperties[`^\w+$`].Pattern = condRe
+	p, ok := s.Definitions["Option"].Properties.Get("if")
+	if !ok {
+		return fmt.Errorf("%s: if property not found in Option", funcName)
+	}
+	ifSchema, ok := p.(*jsonschema.Schema)
+	if !ok {
+		return fmt.Errorf("%s: if property cannot convert to schema", funcName)
+	}
+	ifSchema.Pattern = condRe
+
+	return nil
 }
 
 func export(s *jsonschema.Schema) error {

@@ -6,7 +6,8 @@
     "Conditions": {
       "patternProperties": {
         "^\\w+$": {
-          "type": "string"
+          "type": "string",
+          "pattern": "^[$!(\\w][$!().\\w\u0026| ]+[\\w)]$"
         }
       },
       "additionalProperties": false,
@@ -73,6 +74,7 @@
         },
         "if": {
           "type": "string",
+          "pattern": "^[$!(\\w][$!().\\w\u0026| ]+[\\w)]$",
           "title": "Condition",
           "description": "Condition to output the option",
           "examples": [
