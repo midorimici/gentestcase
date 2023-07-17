@@ -70,3 +70,9 @@ element ::= text
 option ::= text
 condition_ref ::= text
 ```
+
+You can generate JSON schema with the following command to validate your YAML files.
+
+```
+go run github.com/midorimici/gentestcase/cmd/schema@latest
+```
