@@ -48,7 +48,7 @@ func main() {
 	cs := g.Generate()
 
 	// Filter unnecessary cases
-	p := condition.NewParser(d.Data.Elements)
+	p := condition.NewParser(d.Data)
 	f := filterer.New(d.Data.Elements, p, cs)
 	fcs, err := f.Filter()
 	if err != nil {

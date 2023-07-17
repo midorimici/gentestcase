@@ -29,11 +29,11 @@ type Parser interface {
 }
 
 type parser struct {
-	elements model.Elements
+	data *model.Data
 }
 
-func NewParser(cs model.Elements) Parser {
-	return &parser{elements: cs}
+func NewParser(data *model.Data) Parser {
+	return &parser{data}
 }
 
 func (p *parser) Parse(combination model.Combination, text string) (bool, error) {
@@ -161,7 +161,7 @@ func (p *parser) valueCondition(combination model.Combination, text string) (boo
 	element := v[2]
 	option := v[3]
 
-	e, ok := p.elements[element]
+	e, ok := p.data.Elements[element]
 	if !ok {
 		return false, fmt.Errorf(`parsing "%s": %w`, text, fmt.Errorf(`element "%s" is not defined`, element))
 	}

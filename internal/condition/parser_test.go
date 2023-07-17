@@ -13,6 +13,9 @@ func Test_parser_Parse(t *testing.T) {
 		"e2": {Options: map[string]model.Option{"d": {}, "e": {}, "f": {}}},
 		"e3": {Options: map[string]model.Option{"g": {}, "h": {}}},
 	}
+	data := &model.Data{
+		Elements: elems,
+	}
 	combination := model.Combination{"e1": "a", "e2": "d", "e3": "g"}
 
 	type args struct {
@@ -169,7 +172,7 @@ func Test_parser_Parse(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			p := condition.NewParser(elems)
+			p := condition.NewParser(data)
 			got, err := p.Parse(combination, tt.args.text)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("parser.Parse() error = %v, wantErr %v", err, tt.wantErr)
