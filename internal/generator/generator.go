@@ -7,10 +7,10 @@ type Generator interface {
 }
 
 type generator struct {
-	cases model.Cases
+	elements model.Elements
 }
 
-func New(c model.Cases) Generator {
+func New(c model.Elements) Generator {
 	return &generator{c}
 }
 
@@ -23,7 +23,7 @@ func (g *generator) combinations() []model.Combination {
 	options := [][]string{}
 	indexKeyMap := map[int]string{}
 	index := 0
-	for k, v := range g.cases {
+	for k, v := range g.elements {
 		maxIndex := len(v.Options) - 1
 		maxIndices = append(maxIndices, maxIndex)
 		ops := []string{}
@@ -36,7 +36,7 @@ func (g *generator) combinations() []model.Combination {
 		index++
 	}
 
-	t := combTable(len(g.cases), maxIndices, options)
+	t := combTable(len(g.elements), maxIndices, options)
 
 	return tableToMapSlice(t, indexKeyMap)
 }

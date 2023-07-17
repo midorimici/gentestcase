@@ -9,7 +9,7 @@ import (
 )
 
 func Test_converter_ConvertCombinationMapsToTable(t *testing.T) {
-	cases := model.Cases{
+	elems := model.Elements{
 		"e1": {Options: map[string]model.Option{"a": {Name: "A"}, "b": {Name: "B"}}},
 		"e2": {Options: map[string]model.Option{"d": {Name: "D"}, "e": {Name: "E"}, "f": {Name: "F"}}},
 		"e3": {Options: map[string]model.Option{"g": {Name: "G"}, "h": {Name: "H"}}},
@@ -74,7 +74,7 @@ func Test_converter_ConvertCombinationMapsToTable(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			c := converter.New(cases, orderedElements)
+			c := converter.New(elems, orderedElements)
 			if got := c.ConvertCombinationMapsToTable(tt.args.maps); !reflect.DeepEqual(got, want) {
 				t.Errorf("converter.ConvertCombinationMapsToTable() = %v, want %v", got, want)
 			}

@@ -24,7 +24,7 @@ func (p *mockParser) Parse(combination model.Combination, text string) (bool, er
 }
 
 func Test_filterer_Filter(t *testing.T) {
-	cases := model.Cases{
+	elems := model.Elements{
 		"e1": {Options: map[string]model.Option{"a": {}, "b": {}}},
 		"e2": {Options: map[string]model.Option{"d": {}, "e": {If: "!e1.a"}, "f": {}}},
 		"e3": {Options: map[string]model.Option{"g": {}, "h": {If: "e2.f"}}},
@@ -65,7 +65,7 @@ func Test_filterer_Filter(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			f := filterer.New(cases, parser, combinations)
+			f := filterer.New(elems, parser, combinations)
 			got, err := f.Filter()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("filterer.Filter() error = %v, wantErr %v", err, tt.wantErr)

@@ -8,7 +8,7 @@ import (
 )
 
 func Test_parser_Parse(t *testing.T) {
-	cases := model.Cases{
+	elems := model.Elements{
 		"e1": {Options: map[string]model.Option{"a": {}, "b": {}}},
 		"e2": {Options: map[string]model.Option{"d": {}, "e": {}, "f": {}}},
 		"e3": {Options: map[string]model.Option{"g": {}, "h": {}}},
@@ -169,7 +169,7 @@ func Test_parser_Parse(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			p := condition.NewParser(cases)
+			p := condition.NewParser(elems)
 			got, err := p.Parse(combination, tt.args.text)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("parser.Parse() error = %v, wantErr %v", err, tt.wantErr)
