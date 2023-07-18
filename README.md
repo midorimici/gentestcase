@@ -17,7 +17,7 @@ go install github.com/midorimici/gentestcase/cmd/gentestcase@latest
 ```
 Usage of gentestcase:
   -input string
-        input YAML filename (default "factors.yml")
+        input YAML filename (default "cases.yml")
   -output string
         output CSV filename (default "data.csv")
   -w    watch input file change
