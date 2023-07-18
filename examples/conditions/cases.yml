@@ -1,9 +1,9 @@
 # yaml-language-server: $schema=../../schema.json
 
-elements:
+factors:
   day_of_week:
     name: Day of the week
-    options:
+    levels:
       sun:
         name: Sunday
       mon:
@@ -20,14 +20,14 @@ elements:
         name: Saturday
   day_type:
     name: Day type
-    options:
+    levels:
       public_holiday:
         name: Public holiday
       normal:
         name: Normal day
   time:
     name: Time
-    options:
+    levels:
       0_8:
         name: 0-8 o'clock
       8_9:
@@ -46,14 +46,14 @@ elements:
         name: 20-24 o'clock
   test_target:
     name: Test target
-    options:
+    levels:
       state:
         name: State
       action:
         name: Action
   expected:
     name: Expected value
-    options:
+    levels:
       # states
       hungry:
         name: Hungry

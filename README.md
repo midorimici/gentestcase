@@ -10,51 +10,51 @@ go install github.com/midorimici/gentestcase/cmd/gentestcase@latest
 
 ### Usage
 
-1. Prepare YAML file which defines test elements
+1. Prepare YAML file which defines test factors
 1. Run `gentestcase`
 1. A CSV file is generated
 
 ```
 Usage of gentestcase:
   -input string
-        input YAML filename (default "elements.yml")
+        input YAML filename (default "factors.yml")
   -output string
         output CSV filename (default "data.csv")
   -w    watch input file change
 ```
 
-### Element YAML specification
+### Test case definition YAML specification
 
-A top-level properties are `elements` and optional `conditions`.
+A top-level properties are `factors` and optional `conditions`.
 
-Each key of `elements` represents an element unique identifier.
+Each key of `factors` represents an factor unique identifier.
 
-An element contains `name` and `options` properties.
+An factor contains `name` and `levels` properties.
 
-`options` is a key-value pair with an option unique identifier for its key and an object with `name` and `if` properties for its value.
+`levels` is a key-value pair with an level unique identifier for its key and an object with `name` and `if` properties for its value.
 
-`conditions` defines condition variables which can be used by `if` property of element options.
+`conditions` defines condition variables which can be used by `if` property of factor levels.
 
 Below is an example YAML format.
 You can also refer to `examples` directory as input YAML files and its outputs.
 
 ```yml
-elements:
-  element1:
-    name: Element 1
-    options:
-      option_a:
-        name: Option A
-      option_b:
-        name: Option B
-  element2:
-    name: Element 2
-    options:
-      option_a:
-        name: Option A
-        if: element1.option_a
-      option_b:
-        name: Option B
+factors:
+  factor1:
+    name: Factor 1
+    levels:
+      level_a:
+        name: Level A
+      level_b:
+        name: Level B
+  factor2:
+    name: Factor 2
+    levels:
+      level_a:
+        name: Level A
+        if: factor1.level_a
+      level_b:
+        name: Level B
 ```
 
 Below is the EBNF for `if` field syntax.
@@ -66,9 +66,9 @@ group ::= '(' exp ')' | '!(' exp ')' | value_bool
 exp ::= value_bool (' ' operator ' ' value_bool)+
 operator ::= '&&' | '||'
 value_bool ::= value | '!' value
-value ::= element '.' option | '$' condition_ref
-element ::= [a-zA-Z0-9_]+
-option ::= [a-zA-Z0-9_]+
+value ::= factor '.' level | '$' condition_ref
+factor ::= [a-zA-Z0-9_]+
+level ::= [a-zA-Z0-9_]+
 condition_ref ::= [a-zA-Z0-9_]+
 ```
 

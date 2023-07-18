@@ -24,10 +24,10 @@ func (p *mockParser) Parse(combination model.Combination, text string) (bool, er
 }
 
 func Test_filterer_Filter(t *testing.T) {
-	elems := model.Elements{
-		"e1": {Options: map[string]model.Option{"a": {}, "b": {}}},
-		"e2": {Options: map[string]model.Option{"d": {}, "e": {If: "!e1.a"}, "f": {}}},
-		"e3": {Options: map[string]model.Option{"g": {}, "h": {If: "e2.f"}}},
+	elems := model.Factors{
+		"e1": {Levels: map[string]model.Level{"a": {}, "b": {}}},
+		"e2": {Levels: map[string]model.Level{"d": {}, "e": {If: "!e1.a"}, "f": {}}},
+		"e3": {Levels: map[string]model.Level{"g": {}, "h": {If: "e2.f"}}},
 	}
 	parser := &mockParser{}
 	combinations := []model.Combination{

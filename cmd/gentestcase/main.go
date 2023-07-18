@@ -19,7 +19,7 @@ import (
 )
 
 var (
-	inputFilename  = flag.String("input", "elements.yml", "input YAML filename")
+	inputFilename  = flag.String("input", "cases.yml", "input YAML filename")
 	outputFilename = flag.String("output", "data.csv", "output CSV filename")
 	isWatching     = flag.Bool("w", false, "watch input file change")
 )
@@ -153,7 +153,7 @@ func run(in io.Reader) error {
 	fmt.Println(" done")
 
 	// Generate all combinations
-	g := generator.New(d.Data.Elements)
+	g := generator.New(d.Data.Factors)
 	cs := g.Generate()
 
 	cslen := len(cs)
@@ -161,7 +161,7 @@ func run(in io.Reader) error {
 
 	// Filter unnecessary cases
 	p := condition.NewParser(d.Data)
-	f := filterer.New(d.Data.Elements, p, cs)
+	f := filterer.New(d.Data.Factors, p, cs)
 	fcs, err := f.Filter()
 	if err != nil {
 		return fmt.Errorf("%s: %w", funcName, err)
@@ -171,11 +171,11 @@ func run(in io.Reader) error {
 	fmt.Printf("Eliminated %d combinations, kept %d combinations\n", cslen-fcslen, fcslen)
 
 	// Sort cases
-	s := sorter.New(d.Data.Elements, d.OrderedElements, d.OptionOrders)
+	s := sorter.New(d.Data.Factors, d.OrderedFactors, d.LevelOrders)
 	scs := s.Sort(fcs)
 
 	// Convert cases to table
-	cv := converter.New(d.Data.Elements, d.OrderedElements)
+	cv := converter.New(d.Data.Factors, d.OrderedFactors)
 	t := cv.ConvertCombinationMapsToTable(scs)
 
 	// Setup output writer
@@ -194,7 +194,7 @@ func run(in io.Reader) error {
 	fmt.Printf("Write test cases to %q ...", *outputFilename)
 
 	// Export to CSV
-	e := exporter.New(out, d.Data.Elements, d.OrderedElements)
+	e := exporter.New(out, d.Data.Factors, d.OrderedFactors)
 	if err := e.ExportCSV(t); err != nil {
 		return fmt.Errorf("%s: %w", funcName, err)
 	}

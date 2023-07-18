@@ -7,21 +7,21 @@ type Converter interface {
 }
 
 type converter struct {
-	elements        model.Elements
-	orderedElements []string
+	factors        model.Factors
+	orderedFactors []string
 }
 
-func New(elements model.Elements, orderedElements []string) Converter {
-	return &converter{elements, orderedElements}
+func New(factors model.Factors, orderedFactors []string) Converter {
+	return &converter{factors, orderedFactors}
 }
 
 func (c *converter) ConvertCombinationMapsToTable(maps []model.Combination) [][]string {
 	table := [][]string{}
 	for _, m := range maps {
 		row := []string{}
-		for _, e := range c.orderedElements {
+		for _, e := range c.orderedFactors {
 			op := m[e]
-			row = append(row, c.elements[e].Options[op].Name)
+			row = append(row, c.factors[e].Levels[op].Name)
 		}
 		table = append(table, row)
 	}

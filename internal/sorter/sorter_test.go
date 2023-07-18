@@ -9,13 +9,13 @@ import (
 )
 
 func Test_sorter_Sort(t *testing.T) {
-	elems := model.Elements{
-		"e1": {Options: map[string]model.Option{"a": {}, "b": {}}},
-		"e2": {Options: map[string]model.Option{"d": {}, "e": {}, "f": {}}},
-		"e3": {Options: map[string]model.Option{"g": {}, "h": {}}},
+	elems := model.Factors{
+		"e1": {Levels: map[string]model.Level{"a": {}, "b": {}}},
+		"e2": {Levels: map[string]model.Level{"d": {}, "e": {}, "f": {}}},
+		"e3": {Levels: map[string]model.Level{"g": {}, "h": {}}},
 	}
-	orderedElements := []string{"e1", "e2", "e3"}
-	optionOrders := map[string]map[string]int{
+	orderedFactors := []string{"e1", "e2", "e3"}
+	levelOrders := map[string]map[string]int{
 		"e1": {"a": 0, "b": 1},
 		"e2": {"d": 2, "e": 3, "f": 4},
 		"e3": {"g": 5, "h": 6},
@@ -96,7 +96,7 @@ func Test_sorter_Sort(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			s := sorter.New(elems, orderedElements, optionOrders)
+			s := sorter.New(elems, orderedFactors, levelOrders)
 			if got := s.Sort(tt.args.c); !reflect.DeepEqual(got, want) {
 				t.Errorf("sorter.Sort() = %v, want %v", got, want)
 			}
