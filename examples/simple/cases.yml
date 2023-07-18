@@ -1,9 +1,9 @@
 # yaml-language-server: $schema=../../schema.json
 
-elements:
+factors:
   animal:
-    name: Bear
-    options:
+    name: Animal
+    levels:
       bear:
         name: Bear
         if: '!season.winter && !place.sky'
@@ -15,7 +15,7 @@ elements:
         if: '!place.ground'
   season:
     name: Season
-    options:
+    levels:
       spring:
         name: Spring
       summer:
@@ -26,7 +26,7 @@ elements:
         name: Winter
   place:
     name: Place
-    options:
+    levels:
       ground:
         name: Ground
       sky:
@@ -35,7 +35,7 @@ elements:
         name: Water
   expected:
     name: Expected value
-    options:
+    levels:
       walk:
         name: Walks
         if: 'place.ground'
