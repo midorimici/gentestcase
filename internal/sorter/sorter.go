@@ -11,12 +11,12 @@ type Sorter interface {
 }
 
 type sorter struct {
-	elements        model.Elements
+	elements        model.Factors
 	orderedElements []string
 	optionOrders    map[string]map[string]int
 }
 
-func New(elements model.Elements, orderedElements []string, optionOrders map[string]map[string]int) Sorter {
+func New(elements model.Factors, orderedElements []string, optionOrders map[string]map[string]int) Sorter {
 	return &sorter{elements, orderedElements, optionOrders}
 }
 

@@ -175,12 +175,12 @@ func (p *parser) valueCondition(combination model.Combination, text string) (boo
 	element := v[2]
 	option := v[3]
 
-	e, ok := p.data.Elements[element]
+	e, ok := p.data.Factors[element]
 	if !ok {
 		return false, fmt.Errorf(`parsing "%s": %w`, text, fmt.Errorf(`element "%s" is not defined`, element))
 	}
 
-	_, ok = e.Options[option]
+	_, ok = e.Levels[option]
 	if !ok {
 		return false, fmt.Errorf(`parsing "%s": %w`, text, fmt.Errorf(`option "%s" in element %s is not defined`, option, element))
 	}

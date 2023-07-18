@@ -10,12 +10,12 @@ type Filterer interface {
 }
 
 type filterer struct {
-	elements     model.Elements
+	elements     model.Factors
 	parser       condition.Parser
 	combinations []model.Combination
 }
 
-func New(elements model.Elements, p condition.Parser, comb []model.Combination) Filterer {
+func New(elements model.Factors, p condition.Parser, comb []model.Combination) Filterer {
 	return &filterer{elements, p, comb}
 }
 
@@ -26,7 +26,7 @@ func (f *filterer) Filter() ([]model.Combination, error) {
 	for _, comb := range f.combinations {
 		isValidComb := true
 		for element, option := range comb {
-			cond := f.elements[element].Options[option].If
+			cond := f.elements[element].Levels[option].If
 			if cond == "" {
 				continue
 			}

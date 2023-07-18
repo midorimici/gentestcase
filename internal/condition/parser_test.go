@@ -8,10 +8,10 @@ import (
 )
 
 func Test_parser_Parse(t *testing.T) {
-	elems := model.Elements{
-		"e1": {Options: map[string]model.Option{"a": {}, "b": {}}},
-		"e2": {Options: map[string]model.Option{"d": {}, "e": {}, "f": {}}},
-		"e3": {Options: map[string]model.Option{"g": {}, "h": {}}},
+	elems := model.Factors{
+		"e1": {Levels: map[string]model.Level{"a": {}, "b": {}}},
+		"e2": {Levels: map[string]model.Level{"d": {}, "e": {}, "f": {}}},
+		"e3": {Levels: map[string]model.Level{"g": {}, "h": {}}},
 	}
 	refs := model.Conditions{
 		"c1": "e1.a",
@@ -20,7 +20,7 @@ func Test_parser_Parse(t *testing.T) {
 		"c4": "$c1 && $c2",
 	}
 	data := &model.Data{
-		Elements:   elems,
+		Factors:    elems,
 		Conditions: refs,
 	}
 	combination := model.Combination{"e1": "a", "e2": "d", "e3": "g"}

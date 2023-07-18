@@ -9,10 +9,10 @@ import (
 )
 
 func Test_sorter_Sort(t *testing.T) {
-	elems := model.Elements{
-		"e1": {Options: map[string]model.Option{"a": {}, "b": {}}},
-		"e2": {Options: map[string]model.Option{"d": {}, "e": {}, "f": {}}},
-		"e3": {Options: map[string]model.Option{"g": {}, "h": {}}},
+	elems := model.Factors{
+		"e1": {Levels: map[string]model.Level{"a": {}, "b": {}}},
+		"e2": {Levels: map[string]model.Level{"d": {}, "e": {}, "f": {}}},
+		"e3": {Levels: map[string]model.Level{"g": {}, "h": {}}},
 	}
 	orderedElements := []string{"e1", "e2", "e3"}
 	optionOrders := map[string]map[string]int{

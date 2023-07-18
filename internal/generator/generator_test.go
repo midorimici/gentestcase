@@ -22,14 +22,14 @@ func sorted(s []model.Combination) []model.Combination {
 }
 
 func Test_generator_Generate(t *testing.T) {
-	elems := model.Elements{
-		"e1": {Options: map[string]model.Option{"a": {}, "b": {}}},
-		"e2": {Options: map[string]model.Option{"d": {}, "e": {}, "f": {}}},
-		"e3": {Options: map[string]model.Option{"g": {}, "h": {}}},
+	elems := model.Factors{
+		"e1": {Levels: map[string]model.Level{"a": {}, "b": {}}},
+		"e2": {Levels: map[string]model.Level{"d": {}, "e": {}, "f": {}}},
+		"e3": {Levels: map[string]model.Level{"g": {}, "h": {}}},
 	}
 
 	type args struct {
-		elements model.Elements
+		elements model.Factors
 	}
 	tests := []struct {
 		name string

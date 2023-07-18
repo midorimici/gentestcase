@@ -14,11 +14,11 @@ type Exporter interface {
 
 type exporter struct {
 	out      io.Writer
-	elements model.Elements
+	elements model.Factors
 	headers  []string
 }
 
-func New(out io.Writer, elements model.Elements, headers []string) Exporter {
+func New(out io.Writer, elements model.Factors, headers []string) Exporter {
 	return &exporter{out, elements, headers}
 }
 

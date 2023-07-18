@@ -1,23 +1,23 @@
 package model
 
 type Data struct {
-	Elements   Elements   `json:"elements" jsonschema:"title=Elements"`
+	Factors    Factors    `json:"factors" jsonschema:"title=Factors"`
 	Conditions Conditions `json:"conditions,omitempty" jsonschema:"title=Conditions,description=Condition variables,example=is-bear-active: 'place.ground && !season.winter'"`
 }
 
-type Elements map[string]Element
+type Factors map[string]Factor
 
-type Element struct {
-	Name    string            `json:"name" jsonschema:"title=Name,description=Outputted element name"`
-	Options map[string]Option `json:"options" jsonschema:"title=Options"`
+type Factor struct {
+	Name   string           `json:"name" jsonschema:"title=Name,description=Outputted factor name"`
+	Levels map[string]Level `json:"levels" jsonschema:"title=Levels"`
 }
 
-type Option struct {
-	Name string `json:"name" jsonschema:"title=Name,description=Outputted option name"`
+type Level struct {
+	Name string `json:"name" jsonschema:"title=Name,description=Outputted level name"`
 
-	// If represents condition to output the option.
-	// example: element1.option_id && !element2.option_id
-	If string `json:"if,omitempty" jsonschema:"title=Condition,description=Condition to output the option,example=element1.option_id && !element2.option_id"`
+	// If represents condition to output the level.
+	// example: factor1.option_id && !factor2.option_id
+	If string `json:"if,omitempty" jsonschema:"title=Condition,description=Condition to output the level,example=factor1.option_id && !factor2.option_id"`
 }
 
 type Conditions map[string]string
