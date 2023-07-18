@@ -14,7 +14,7 @@ func Test_converter_ConvertCombinationMapsToTable(t *testing.T) {
 		"e2": {Levels: map[string]model.Level{"d": {Name: "D"}, "e": {Name: "E"}, "f": {Name: "F"}}},
 		"e3": {Levels: map[string]model.Level{"g": {Name: "G"}, "h": {Name: "H"}}},
 	}
-	orderedElements := []string{"e1", "e2", "e3"}
+	orderedFactors := []string{"e1", "e2", "e3"}
 	want := [][]string{
 		{"A", "D", "G"},
 		{"A", "D", "H"},
@@ -74,7 +74,7 @@ func Test_converter_ConvertCombinationMapsToTable(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			c := converter.New(elems, orderedElements)
+			c := converter.New(elems, orderedFactors)
 			if got := c.ConvertCombinationMapsToTable(tt.args.maps); !reflect.DeepEqual(got, want) {
 				t.Errorf("converter.ConvertCombinationMapsToTable() = %v, want %v", got, want)
 			}

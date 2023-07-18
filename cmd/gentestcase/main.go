@@ -171,11 +171,11 @@ func run(in io.Reader) error {
 	fmt.Printf("Eliminated %d combinations, kept %d combinations\n", cslen-fcslen, fcslen)
 
 	// Sort cases
-	s := sorter.New(d.Data.Factors, d.OrderedElements, d.OptionOrders)
+	s := sorter.New(d.Data.Factors, d.OrderedFactors, d.LevelOrders)
 	scs := s.Sort(fcs)
 
 	// Convert cases to table
-	cv := converter.New(d.Data.Factors, d.OrderedElements)
+	cv := converter.New(d.Data.Factors, d.OrderedFactors)
 	t := cv.ConvertCombinationMapsToTable(scs)
 
 	// Setup output writer
@@ -194,7 +194,7 @@ func run(in io.Reader) error {
 	fmt.Printf("Write test cases to %q ...", *outputFilename)
 
 	// Export to CSV
-	e := exporter.New(out, d.Data.Factors, d.OrderedElements)
+	e := exporter.New(out, d.Data.Factors, d.OrderedFactors)
 	if err := e.ExportCSV(t); err != nil {
 		return fmt.Errorf("%s: %w", funcName, err)
 	}

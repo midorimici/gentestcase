@@ -13,9 +13,9 @@ import (
 )
 
 type data struct {
-	Data            *model.Data
-	OrderedElements []string
-	OptionOrders    map[string]map[string]int
+	Data           *model.Data
+	OrderedFactors []string
+	LevelOrders    map[string]map[string]int
 }
 
 type Loader interface {
@@ -45,17 +45,17 @@ func (l *loader) Load() (*data, error) {
 	}
 
 	fileStr := string(bytes)
-	elements, err := orderedElements(fileStr)
+	factors, err := orderedFactors(fileStr)
 	if err != nil {
 		return nil, fmt.Errorf("%s: %w", funcName, err)
 	}
 
-	opOrds, err := optionOrders(fileStr, elements)
+	opOrds, err := levelOrders(fileStr, factors)
 	if err != nil {
 		return nil, fmt.Errorf("%s: %w", funcName, err)
 	}
 
-	return &data{d, elements, opOrds}, nil
+	return &data{d, factors, opOrds}, nil
 }
 
 func readInput(f io.Reader) ([]byte, error) {
@@ -69,11 +69,11 @@ func readInput(f io.Reader) ([]byte, error) {
 	return data, nil
 }
 
-func orderedElements(fileStr string) ([]string, error) {
+func orderedFactors(fileStr string) ([]string, error) {
 	re := regexp.MustCompile(`\n  (\w+):\n`)
 	matches := re.FindAllStringSubmatch(fileStr, -1)
 	if matches == nil {
-		return nil, fmt.Errorf("orderedElements: failed")
+		return nil, fmt.Errorf("orderedFactors: failed")
 	}
 
 	orders := []string{}
@@ -84,37 +84,37 @@ func orderedElements(fileStr string) ([]string, error) {
 	return orders, nil
 }
 
-func optionOrders(fileStr string, elements []string) (map[string]map[string]int, error) {
+func levelOrders(fileStr string, factors []string) (map[string]map[string]int, error) {
 	re := regexp.MustCompile(`\n      (\w+):\n`)
 	matches := re.FindAllStringSubmatch(fileStr, -1)
 	if matches == nil {
-		return nil, fmt.Errorf("optionOrders: failed")
+		return nil, fmt.Errorf("levelOrders: failed")
 	}
 
 	opLocs := re.FindAllStringIndex(fileStr, -1)
 	if opLocs == nil {
-		return nil, fmt.Errorf("optionOrders: failed")
+		return nil, fmt.Errorf("levelOrders: failed")
 	}
 
-	elemRe := regexp.MustCompile(fmt.Sprintf(`\n  (?:%s):\n`, strings.Join(elements, "|")))
+	elemRe := regexp.MustCompile(fmt.Sprintf(`\n  (?:%s):\n`, strings.Join(factors, "|")))
 	elemLocs := elemRe.FindAllStringIndex(fileStr, -1)
 	if elemLocs == nil {
-		return nil, fmt.Errorf("optionOrders: failed")
+		return nil, fmt.Errorf("levelOrders: failed")
 	}
 
 	orders := map[string]map[string]int{}
-	for _, e := range elements {
+	for _, e := range factors {
 		orders[e] = map[string]int{}
 	}
 
 	j := 0
 	for i, m := range matches {
 		if l := opLocs[i][0]; elemLocs[j][0] < l {
-			if j < len(elements)-1 && l > elemLocs[j+1][0] {
+			if j < len(factors)-1 && l > elemLocs[j+1][0] {
 				j++
 			}
 
-			orders[elements[j]][m[1]] = i
+			orders[factors[j]][m[1]] = i
 		}
 	}
 

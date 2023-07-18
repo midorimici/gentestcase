@@ -177,12 +177,12 @@ func Test_parser_Parse(t *testing.T) {
 
 		// Abnormal
 		{
-			name:    "returns error with element which does not exist",
+			name:    "returns error with factor which does not exist",
 			args:    args{text: "e.a"},
 			wantErr: true,
 		},
 		{
-			name:    "returns error with option which does not exist",
+			name:    "returns error with level which does not exist",
 			args:    args{text: "e1.c"},
 			wantErr: true,
 		},

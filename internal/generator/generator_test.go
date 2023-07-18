@@ -29,7 +29,7 @@ func Test_generator_Generate(t *testing.T) {
 	}
 
 	type args struct {
-		elements model.Factors
+		factors model.Factors
 	}
 	tests := []struct {
 		name string
@@ -57,7 +57,7 @@ func Test_generator_Generate(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			g := generator.New(tt.args.elements)
+			g := generator.New(tt.args.factors)
 			got := g.Generate()
 			got = sorted(got)
 			want := sorted(tt.want)

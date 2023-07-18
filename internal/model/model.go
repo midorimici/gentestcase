@@ -16,8 +16,8 @@ type Level struct {
 	Name string `json:"name" jsonschema:"title=Name,description=Outputted level name"`
 
 	// If represents condition to output the level.
-	// example: factor1.option_id && !factor2.option_id
-	If string `json:"if,omitempty" jsonschema:"title=Condition,description=Condition to output the level,example=factor1.option_id && !factor2.option_id"`
+	// example: factor1.level_id && !factor2.level_id
+	If string `json:"if,omitempty" jsonschema:"title=Condition,description=Condition to output the level,example=factor1.level_id && !factor2.level_id"`
 }
 
 type Conditions map[string]string

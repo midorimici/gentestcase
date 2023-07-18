@@ -7,7 +7,7 @@ type Generator interface {
 }
 
 type generator struct {
-	elements model.Factors
+	factors model.Factors
 }
 
 func New(c model.Factors) Generator {
@@ -20,23 +20,23 @@ func (g *generator) Generate() []model.Combination {
 
 func (g *generator) combinations() []model.Combination {
 	maxIndices := []int{}
-	options := [][]string{}
+	levels := [][]string{}
 	indexKeyMap := map[int]string{}
 	index := 0
-	for k, v := range g.elements {
+	for k, v := range g.factors {
 		maxIndex := len(v.Levels) - 1
 		maxIndices = append(maxIndices, maxIndex)
-		ops := []string{}
+		lvs := []string{}
 		for id := range v.Levels {
-			ops = append(ops, id)
+			lvs = append(lvs, id)
 		}
-		options = append(options, ops)
+		levels = append(levels, lvs)
 
 		indexKeyMap[index] = k
 		index++
 	}
 
-	t := combTable(len(g.elements), maxIndices, options)
+	t := combTable(len(g.factors), maxIndices, levels)
 
 	return tableToMapSlice(t, indexKeyMap)
 }
@@ -49,12 +49,12 @@ func sum(a []int) int {
 	return sum
 }
 
-func combTable(length int, maxIndices []int, options [][]string) [][]string {
+func combTable(length int, maxIndices []int, levels [][]string) [][]string {
 	maxIndicesSum := sum(maxIndices)
 	combs := [][]string{}
 	counter := make([]int, length)
 	for sum(counter) < maxIndicesSum {
-		combs = append(combs, optionsByCounter(options, counter))
+		combs = append(combs, levelsByCounter(levels, counter))
 
 		i := length - 1
 		counter[i]++
@@ -67,17 +67,17 @@ func combTable(length int, maxIndices []int, options [][]string) [][]string {
 			}
 		}
 	}
-	combs = append(combs, optionsByCounter(options, counter))
+	combs = append(combs, levelsByCounter(levels, counter))
 
 	return combs
 }
 
-func optionsByCounter(options [][]string, counter []int) []string {
-	ops := []string{}
+func levelsByCounter(levels [][]string, counter []int) []string {
+	lvs := []string{}
 	for k, v := range counter {
-		ops = append(ops, options[k][v])
+		lvs = append(lvs, levels[k][v])
 	}
-	return ops
+	return lvs
 }
 
 func tableToMapSlice(t [][]string, indexKeyMap map[int]string) []model.Combination {

@@ -11,13 +11,13 @@ type Sorter interface {
 }
 
 type sorter struct {
-	elements        model.Factors
-	orderedElements []string
-	optionOrders    map[string]map[string]int
+	factors        model.Factors
+	orderedFactors []string
+	levelOrders    map[string]map[string]int
 }
 
-func New(elements model.Factors, orderedElements []string, optionOrders map[string]map[string]int) Sorter {
-	return &sorter{elements, orderedElements, optionOrders}
+func New(factors model.Factors, orderedFactors []string, levelOrders map[string]map[string]int) Sorter {
+	return &sorter{factors, orderedFactors, levelOrders}
 }
 
 func (s *sorter) Sort(c []model.Combination) []model.Combination {
@@ -26,12 +26,12 @@ func (s *sorter) Sort(c []model.Combination) []model.Combination {
 		ci := combs[i]
 		cj := combs[j]
 
-		for _, e := range s.orderedElements {
+		for _, e := range s.orderedFactors {
 			oi := ci[e]
 			oj := cj[e]
 
-			oiOrd := s.optionOrders[e][oi]
-			ojOrd := s.optionOrders[e][oj]
+			oiOrd := s.levelOrders[e][oi]
+			ojOrd := s.levelOrders[e][oj]
 
 			if oiOrd < ojOrd {
 				return true

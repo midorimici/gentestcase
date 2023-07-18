@@ -13,13 +13,13 @@ type Exporter interface {
 }
 
 type exporter struct {
-	out      io.Writer
-	elements model.Factors
-	headers  []string
+	out     io.Writer
+	factors model.Factors
+	headers []string
 }
 
-func New(out io.Writer, elements model.Factors, headers []string) Exporter {
-	return &exporter{out, elements, headers}
+func New(out io.Writer, factors model.Factors, headers []string) Exporter {
+	return &exporter{out, factors, headers}
 }
 
 func (e *exporter) ExportCSV(table [][]string) error {
@@ -27,7 +27,7 @@ func (e *exporter) ExportCSV(table [][]string) error {
 
 	headers := []string{}
 	for _, h := range e.headers {
-		headers = append(headers, e.elements[h].Name)
+		headers = append(headers, e.factors[h].Name)
 	}
 
 	w := csv.NewWriter(e.out)
