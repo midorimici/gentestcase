@@ -20,6 +20,7 @@ Usage of gentestcase:
         input YAML filename (default "elements.yml")
   -output string
         output CSV filename (default "data.csv")
+  -w    watch input file change
 ```
 
 ### Element YAML specification
