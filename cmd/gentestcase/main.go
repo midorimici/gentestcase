@@ -47,6 +47,10 @@ func main() {
 		return
 	}
 
+	if *inputFilename == "" {
+		log.Fatal("error: cannot watch standard input. You should not use -w flag with empty string -input flag.")
+	}
+
 	if err := addWatcher(in); err != nil {
 		log.Fatal(err)
 	}
