@@ -141,6 +141,8 @@ func rewindFile(in io.ReadSeeker) error {
 func run(in io.Reader) error {
 	const funcName = "run"
 
+	fmt.Printf("Read test definitions from %q ...", *inputFilename)
+
 	// Load data from input
 	l := loader.New(in)
 	d, err := l.Load()
@@ -148,9 +150,14 @@ func run(in io.Reader) error {
 		return fmt.Errorf("%s: %w", funcName, err)
 	}
 
+	fmt.Println(" done")
+
 	// Generate all combinations
 	g := generator.New(d.Data.Elements)
 	cs := g.Generate()
+
+	cslen := len(cs)
+	fmt.Printf("Found %d possible combinations\n", cslen)
 
 	// Filter unnecessary cases
 	p := condition.NewParser(d.Data)
@@ -159,6 +166,9 @@ func run(in io.Reader) error {
 	if err != nil {
 		return fmt.Errorf("%s: %w", funcName, err)
 	}
+
+	fcslen := len(fcs)
+	fmt.Printf("Eliminated %d combinations, kept %d combinations\n", cslen-fcslen, fcslen)
 
 	// Sort cases
 	s := sorter.New(d.Data.Elements, d.OrderedElements, d.OptionOrders)
@@ -181,11 +191,15 @@ func run(in io.Reader) error {
 		out = f
 	}
 
+	fmt.Printf("Write test cases to %q ...", *outputFilename)
+
 	// Export to CSV
 	e := exporter.New(out, d.Data.Elements, d.OrderedElements)
 	if err := e.ExportCSV(t); err != nil {
 		return fmt.Errorf("%s: %w", funcName, err)
 	}
+
+	fmt.Println(" done")
 
 	return nil
 }
