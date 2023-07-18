@@ -30,10 +30,10 @@ func main() {
 
 func restrictPropertyNames(s *jsonschema.Schema) {
 	restrictPropertyName(s.Definitions["Conditions"])
-	restrictPropertyName(s.Definitions["Elements"])
-	op, ok := s.Definitions["Element"].Properties.Get("options")
+	restrictPropertyName(s.Definitions["Factors"])
+	op, ok := s.Definitions["Factor"].Properties.Get("levels")
 	if !ok {
-		log.Fatal("options property not found in Element")
+		log.Fatal("levels property not found in Factor")
 	}
 	restrictPropertyName(op.(*jsonschema.Schema))
 }
@@ -48,9 +48,9 @@ func addConditionPattern(s *jsonschema.Schema) error {
 	const condRe = `^[$!(\w][$!().\w&| ]+[\w)]$`
 
 	s.Definitions["Conditions"].PatternProperties[`^\w+$`].Pattern = condRe
-	p, ok := s.Definitions["Option"].Properties.Get("if")
+	p, ok := s.Definitions["Level"].Properties.Get("if")
 	if !ok {
-		return fmt.Errorf("%s: if property not found in Option", funcName)
+		return fmt.Errorf("%s: if property not found in Level", funcName)
 	}
 	ifSchema, ok := p.(*jsonschema.Schema)
 	if !ok {

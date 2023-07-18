@@ -15,9 +15,9 @@
     },
     "Data": {
       "properties": {
-        "elements": {
-          "$ref": "#/$defs/Elements",
-          "title": "Elements"
+        "factors": {
+          "$ref": "#/$defs/Factors",
+          "title": "Factors"
         },
         "conditions": {
           "$ref": "#/$defs/Conditions",
@@ -28,57 +28,57 @@
       "additionalProperties": false,
       "type": "object",
       "required": [
-        "elements"
+        "factors"
       ]
     },
-    "Element": {
+    "Factor": {
       "properties": {
         "name": {
           "type": "string",
           "title": "Name",
-          "description": "Outputted element name"
+          "description": "Outputted factor name"
         },
-        "options": {
+        "levels": {
           "patternProperties": {
             "^\\w+$": {
-              "$ref": "#/$defs/Option"
+              "$ref": "#/$defs/Level"
             }
           },
           "additionalProperties": false,
           "type": "object",
-          "title": "Options"
+          "title": "Levels"
         }
       },
       "additionalProperties": false,
       "type": "object",
       "required": [
         "name",
-        "options"
+        "levels"
       ]
     },
-    "Elements": {
+    "Factors": {
       "patternProperties": {
         "^\\w+$": {
-          "$ref": "#/$defs/Element"
+          "$ref": "#/$defs/Factor"
         }
       },
       "additionalProperties": false,
       "type": "object"
     },
-    "Option": {
+    "Level": {
       "properties": {
         "name": {
           "type": "string",
           "title": "Name",
-          "description": "Outputted option name"
+          "description": "Outputted level name"
         },
         "if": {
           "type": "string",
           "pattern": "^[$!(\\w][$!().\\w\u0026| ]+[\\w)]$",
           "title": "Condition",
-          "description": "Condition to output the option",
+          "description": "Condition to output the level",
           "examples": [
-            "element1.option_id \u0026\u0026 !element2.option_id"
+            "factor1.level_id \u0026\u0026 !factor2.level_id"
           ]
         }
       },
