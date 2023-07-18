@@ -19,7 +19,7 @@ import (
 )
 
 var (
-	inputFilename  = flag.String("input", "elements.yml", "input YAML filename")
+	inputFilename  = flag.String("input", "cases.yml", "input YAML filename")
 	outputFilename = flag.String("output", "data.csv", "output CSV filename")
 	isWatching     = flag.Bool("w", false, "watch input file change")
 )
