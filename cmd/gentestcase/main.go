@@ -2,9 +2,12 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"io"
 	"log"
 	"os"
+
+	"github.com/fsnotify/fsnotify"
 
 	"github.com/midorimici/gentestcase/internal/condition"
 	"github.com/midorimici/gentestcase/internal/converter"
@@ -18,13 +21,14 @@ import (
 var (
 	inputFilename  = flag.String("input", "elements.yml", "input YAML filename")
 	outputFilename = flag.String("output", "data.csv", "output CSV filename")
+	isWatching     = flag.Bool("w", false, "watch input file change")
 )
 
 func main() {
 	flag.Parse()
 
 	// Setup input reader
-	var in io.Reader
+	var in io.ReadSeeker
 	if *inputFilename == "" {
 		in = os.Stdin
 	} else {
@@ -36,11 +40,108 @@ func main() {
 		in = f
 	}
 
+	if !*isWatching {
+		if err := run(in); err != nil {
+			log.Fatal(err)
+		}
+		return
+	}
+
+	if err := addWatcher(in); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func addWatcher(in io.ReadSeeker) error {
+	const funcName = "addWatcher"
+
+	// Create new watcher
+	watcher, err := fsnotify.NewWatcher()
+	if err != nil {
+		return fmt.Errorf("%s: %w", funcName, err)
+	}
+	defer watcher.Close()
+
+	// Start listening for events
+	go listen(in, watcher)
+
+	// Add a path
+	err = watcher.Add(*inputFilename)
+	if err != nil {
+		return fmt.Errorf("%s: %w", funcName, err)
+	}
+
+	fmt.Printf("Watching %q\n", *inputFilename)
+
+	// Block main goroutine forever
+	<-make(chan struct{})
+
+	return nil
+}
+
+func listen(in io.ReadSeeker, watcher *fsnotify.Watcher) {
+	const funcName = "listen"
+
+	for {
+		select {
+		case event, ok := <-watcher.Events:
+			if !ok {
+				return
+			}
+
+			if !event.Has(fsnotify.Write) {
+				continue
+			}
+
+			// Check if the file is empty
+			info, err := os.Stat(*inputFilename)
+			if err != nil {
+				log.Fatal(fmt.Errorf("%s: %w", funcName, err))
+			}
+
+			// If the file is empty, skip running
+			if info.Size() == 0 {
+				continue
+			}
+
+			log.Printf("file modified: %q\n", event.Name)
+
+			if err := rewindFile(in); err != nil {
+				log.Fatal(fmt.Errorf("%s: %w", funcName, err))
+			}
+
+			if err := run(in); err != nil {
+				log.Fatal(fmt.Errorf("%s: %w", funcName, err))
+			}
+
+		case err, ok := <-watcher.Errors:
+			if !ok {
+				return
+			}
+
+			log.Println("error:", err)
+		}
+	}
+}
+
+func rewindFile(in io.ReadSeeker) error {
+	const funcName = "rewindFile"
+
+	_, err := in.Seek(0, io.SeekStart)
+	if err != nil {
+		return fmt.Errorf("%s: %w", funcName, err)
+	}
+	return nil
+}
+
+func run(in io.Reader) error {
+	const funcName = "run"
+
 	// Load data from input
 	l := loader.New(in)
 	d, err := l.Load()
 	if err != nil {
-		log.Fatal(err)
+		return fmt.Errorf("%s: %w", funcName, err)
 	}
 
 	// Generate all combinations
@@ -52,7 +153,7 @@ func main() {
 	f := filterer.New(d.Data.Elements, p, cs)
 	fcs, err := f.Filter()
 	if err != nil {
-		log.Fatal(err)
+		return fmt.Errorf("%s: %w", funcName, err)
 	}
 
 	// Sort cases
@@ -70,7 +171,7 @@ func main() {
 	} else {
 		f, err := os.Create(*outputFilename)
 		if err != nil {
-			log.Fatal(err)
+			return fmt.Errorf("%s: %w", funcName, err)
 		}
 		defer f.Close()
 		out = f
@@ -79,6 +180,8 @@ func main() {
 	// Export to CSV
 	e := exporter.New(out, d.Data.Elements, d.OrderedElements)
 	if err := e.ExportCSV(t); err != nil {
-		log.Fatal(err)
+		return fmt.Errorf("%s: %w", funcName, err)
 	}
+
+	return nil
 }
