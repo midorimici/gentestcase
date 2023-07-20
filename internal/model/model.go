@@ -1,8 +1,9 @@
 package model
 
 type Data struct {
-	Factors    Factors    `json:"factors" jsonschema:"title=Factors"`
-	Conditions Conditions `json:"conditions,omitempty" jsonschema:"title=Conditions,description=Condition variables,example=is-bear-active: 'place.ground && !season.winter'"`
+	Factors     Factors     `json:"factors" jsonschema:"title=Factors"`
+	Conditions  Conditions  `json:"conditions,omitempty" jsonschema:"title=Conditions,description=Condition variables,example=is-bear-active: 'place.ground && !season.winter'"`
+	Constraints Constraints `json:"constraints,omitempty" jsonschema:"title=Constraints"`
 }
 
 type Factors map[string]Factor
@@ -14,12 +15,16 @@ type Factor struct {
 
 type Level struct {
 	Name string `json:"name" jsonschema:"title=Name,description=Outputted level name"`
-
-	// If represents condition to output the level.
-	// example: factor1.level_id && !factor2.level_id
-	If string `json:"if,omitempty" jsonschema:"title=Condition,description=Condition to output the level,example=factor1.level_id && !factor2.level_id"`
 }
 
 type Conditions map[string]string
+
+type Constraint struct {
+	OnlyIf string `json:"only_if" jsonschema:"title=Only if,description=The condition in then is available only if this condition is satisfied,example=factor1.level1 && !factor2.level2"`
+	Then   string `json:"then" jsonschema:"title=Then,example=factor1.level1 && !factor2.level2"`
+	Else   string `json:"else,omitempty" jsonschema:"title=Else,example=factor1.level1 && !factor2.level2"`
+}
+
+type Constraints []Constraint
 
 type Combination map[string]string

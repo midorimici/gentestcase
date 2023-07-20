@@ -19,7 +19,7 @@ func main() {
 
 	s := jsonschema.Reflect(&model.Data{})
 	restrictPropertyNames(s)
-	if err := addConditionPattern(s); err != nil {
+	if err := addConditionPatterns(s); err != nil {
 		log.Fatal(err)
 	}
 
@@ -43,20 +43,25 @@ func restrictPropertyName(s *jsonschema.Schema) {
 	s.AdditionalProperties = jsonschema.FalseSchema
 }
 
-func addConditionPattern(s *jsonschema.Schema) error {
+func addConditionPatterns(s *jsonschema.Schema) error {
 	const funcName = "addConditionPattern"
 	const condRe = `^[$!(\w][$!().\w&| ]+[\w)]$`
 
 	s.Definitions["Conditions"].PatternProperties[`^\w+$`].Pattern = condRe
-	p, ok := s.Definitions["Level"].Properties.Get("if")
-	if !ok {
-		return fmt.Errorf("%s: if property not found in Level", funcName)
+
+	condProps := []string{"only_if", "then", "else"}
+	constraintProps := s.Definitions["Constraint"].Properties
+	for _, prop := range condProps {
+		p, ok := constraintProps.Get(prop)
+		if !ok {
+			return fmt.Errorf("%s: if property not found in Level", funcName)
+		}
+		ifSchema, ok := p.(*jsonschema.Schema)
+		if !ok {
+			return fmt.Errorf("%s: if property cannot convert to schema", funcName)
+		}
+		ifSchema.Pattern = condRe
 	}
-	ifSchema, ok := p.(*jsonschema.Schema)
-	if !ok {
-		return fmt.Errorf("%s: if property cannot convert to schema", funcName)
-	}
-	ifSchema.Pattern = condRe
 
 	return nil
 }
