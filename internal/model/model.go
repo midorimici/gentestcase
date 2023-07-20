@@ -20,7 +20,7 @@ type Level struct {
 type Conditions map[string]string
 
 type Constraint struct {
-	OnlyIf string `json:"only_if" jsonschema:"title=Only if,description=The condition in then is available only if this condition is satisfied,example=factor1.level1 && !factor2.level2"`
+	OnlyIf string `yaml:"only_if" json:"only_if" jsonschema:"title=Only if,description=The condition in then is available only if this condition is satisfied,example=factor1.level1 && !factor2.level2"`
 	Then   string `json:"then" jsonschema:"title=Then,example=factor1.level1 && !factor2.level2"`
 	Else   string `json:"else,omitempty" jsonschema:"title=Else,example=factor1.level1 && !factor2.level2"`
 }
