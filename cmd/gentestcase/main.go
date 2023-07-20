@@ -161,7 +161,7 @@ func run(in io.Reader) error {
 
 	// Filter unnecessary cases
 	p := condition.NewParser(d.Data)
-	f := filterer.New(d.Data.Factors, p, cs)
+	f := filterer.New(d.Data.Constraints, p, cs)
 	fcs, err := f.Filter()
 	if err != nil {
 		return fmt.Errorf("%s: %w", funcName, err)
