@@ -85,7 +85,7 @@ func orderedFactors(fileStr string) ([]string, error) {
 }
 
 func levelOrders(fileStr string, factors []string) (map[string]map[string]int, error) {
-	re := regexp.MustCompile(`\n      (\w+):\n`)
+	re := regexp.MustCompile(`\n      (\w+):`)
 	matches := re.FindAllStringSubmatch(fileStr, -1)
 	if matches == nil {
 		return nil, fmt.Errorf("levelOrders: failed")
