@@ -86,12 +86,13 @@
         "levels": {
           "patternProperties": {
             "^\\w+$": {
-              "$ref": "#/$defs/Level"
+              "type": "string"
             }
           },
           "additionalProperties": false,
           "type": "object",
-          "title": "Levels"
+          "title": "Levels",
+          "description": "Possible values of the factor"
         }
       },
       "additionalProperties": false,
@@ -109,20 +110,6 @@
       },
       "additionalProperties": false,
       "type": "object"
-    },
-    "Level": {
-      "properties": {
-        "name": {
-          "type": "string",
-          "title": "Name",
-          "description": "Outputted level name"
-        }
-      },
-      "additionalProperties": false,
-      "type": "object",
-      "required": [
-        "name"
-      ]
     }
   }
 }
