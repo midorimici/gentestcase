@@ -4,46 +4,40 @@ factors:
   animal:
     name: Animal
     levels:
-      bear:
-        name: Bear
-        if: '!season.winter && !place.sky'
-      bird:
-        name: Bird
-        if: '!place.water'
-      fish:
-        name: Fish
-        if: '!place.ground'
+      bear: Bear
+      bird: Bird
+      fish: Fish
   season:
     name: Season
     levels:
-      spring:
-        name: Spring
-      summer:
-        name: Summer
-      autumn:
-        name: Autumn
-      winter:
-        name: Winter
+      spring: Spring
+      summer: Summer
+      autumn: Autumn
+      winter: Winter
   place:
     name: Place
     levels:
-      ground:
-        name: Ground
-      sky:
-        name: Sky
-      water:
-        name: Water
+      ground: Ground
+      sky: Sky
+      water: Water
   expected:
     name: Expected value
     levels:
-      walk:
-        name: Walks
-        if: 'place.ground'
-      fly:
-        name: Flies
-        if: 'place.sky && animal.bird'
-      swim:
-        name: Swims
-        if: 'place.water'
-      dance:
-        name: Dances
+      walk: Walks
+      fly: Flies
+      swim: Swims
+      dance: Dances
+
+constraints:
+  - only_if: '!season.winter && !place.sky'
+    then: 'animal.bear'
+  - only_if: '!place.water'
+    then: 'animal.bird'
+  - only_if: '!place.ground'
+    then: 'animal.fish'
+  - only_if: 'place.ground'
+    then: 'expected.walk'
+  - only_if: 'place.sky && animal.bird'
+    then: 'expected.fly'
+  - only_if: 'place.water'
+    then: 'expected.swim'
