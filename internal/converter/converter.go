@@ -21,7 +21,7 @@ func (c *converter) ConvertCombinationMapsToTable(maps []model.Combination) [][]
 		row := []string{}
 		for _, e := range c.orderedFactors {
 			op := m[e]
-			row = append(row, c.factors[e].Levels[op].Name)
+			row = append(row, c.factors[e].Levels[op])
 		}
 		table = append(table, row)
 	}

@@ -9,12 +9,8 @@ type Data struct {
 type Factors map[string]Factor
 
 type Factor struct {
-	Name   string           `json:"name" jsonschema:"title=Name,description=Outputted factor name"`
-	Levels map[string]Level `json:"levels" jsonschema:"title=Levels"`
-}
-
-type Level struct {
-	Name string `json:"name" jsonschema:"title=Name,description=Outputted level name"`
+	Name   string            `json:"name" jsonschema:"title=Name,description=Outputted factor name"`
+	Levels map[string]string `json:"levels" jsonschema:"title=Levels,description=Possible values of the factor"`
 }
 
 type Conditions map[string]string
