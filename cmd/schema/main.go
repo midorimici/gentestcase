@@ -49,7 +49,7 @@ func addConditionPatterns(s *jsonschema.Schema) error {
 
 	s.Definitions["Conditions"].PatternProperties[`^\w+$`].Pattern = condRe
 
-	condProps := []string{"only_if", "then", "else"}
+	condProps := []string{"if", "only_if", "then", "else"}
 	constraintProps := s.Definitions["Constraint"].Properties
 	for _, prop := range condProps {
 		p, ok := constraintProps.Get(prop)
