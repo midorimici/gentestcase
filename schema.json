@@ -13,6 +13,47 @@
       "additionalProperties": false,
       "type": "object"
     },
+    "Constraint": {
+      "properties": {
+        "only_if": {
+          "type": "string",
+          "pattern": "^[$!(\\w][$!().\\w\u0026| ]+[\\w)]$",
+          "title": "Only if",
+          "description": "The condition in then is available only if this condition is satisfied",
+          "examples": [
+            "factor1.level1 \u0026\u0026 !factor2.level2"
+          ]
+        },
+        "then": {
+          "type": "string",
+          "pattern": "^[$!(\\w][$!().\\w\u0026| ]+[\\w)]$",
+          "title": "Then",
+          "examples": [
+            "factor1.level1 \u0026\u0026 !factor2.level2"
+          ]
+        },
+        "else": {
+          "type": "string",
+          "pattern": "^[$!(\\w][$!().\\w\u0026| ]+[\\w)]$",
+          "title": "Else",
+          "examples": [
+            "factor1.level1 \u0026\u0026 !factor2.level2"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "only_if",
+        "then"
+      ]
+    },
+    "Constraints": {
+      "items": {
+        "$ref": "#/$defs/Constraint"
+      },
+      "type": "array"
+    },
     "Data": {
       "properties": {
         "factors": {
@@ -23,6 +64,10 @@
           "$ref": "#/$defs/Conditions",
           "title": "Conditions",
           "description": "Condition variables"
+        },
+        "constraints": {
+          "$ref": "#/$defs/Constraints",
+          "title": "Constraints"
         }
       },
       "additionalProperties": false,
@@ -41,12 +86,13 @@
         "levels": {
           "patternProperties": {
             "^\\w+$": {
-              "$ref": "#/$defs/Level"
+              "type": "string"
             }
           },
           "additionalProperties": false,
           "type": "object",
-          "title": "Levels"
+          "title": "Levels",
+          "description": "Possible values of the factor"
         }
       },
       "additionalProperties": false,
@@ -64,29 +110,6 @@
       },
       "additionalProperties": false,
       "type": "object"
-    },
-    "Level": {
-      "properties": {
-        "name": {
-          "type": "string",
-          "title": "Name",
-          "description": "Outputted level name"
-        },
-        "if": {
-          "type": "string",
-          "pattern": "^[$!(\\w][$!().\\w\u0026| ]+[\\w)]$",
-          "title": "Condition",
-          "description": "Condition to output the level",
-          "examples": [
-            "factor1.level_id \u0026\u0026 !factor2.level_id"
-          ]
-        }
-      },
-      "additionalProperties": false,
-      "type": "object",
-      "required": [
-        "name"
-      ]
     }
   }
 }

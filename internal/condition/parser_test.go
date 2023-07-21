@@ -9,9 +9,9 @@ import (
 
 func Test_parser_Parse(t *testing.T) {
 	elems := model.Factors{
-		"e1": {Levels: map[string]model.Level{"a": {}, "b": {}}},
-		"e2": {Levels: map[string]model.Level{"d": {}, "e": {}, "f": {}}},
-		"e3": {Levels: map[string]model.Level{"g": {}, "h": {}}},
+		"e1": {Levels: map[string]string{"a": "a", "b": "b"}},
+		"e2": {Levels: map[string]string{"d": "d", "e": "e", "f": "f"}},
+		"e3": {Levels: map[string]string{"g": "g", "h": "h"}},
 	}
 	refs := model.Conditions{
 		"c1": "e1.a",
