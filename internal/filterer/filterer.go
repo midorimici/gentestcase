@@ -28,44 +28,65 @@ func (f *filterer) Filter() ([]model.Combination, error) {
 	for _, comb := range f.combinations {
 		isValidComb := true
 		for _, c := range f.constraints {
-			// Check if the combination is related to the condition
-			isSatisfied, err := f.parser.Parse(comb, c.Then)
+			ok, err := isConstraintSatisfied(f.parser.Parse, comb, c)
 			if err != nil {
 				return nil, fmt.Errorf("%s: %w", funcName, err)
 			}
-
-			if !isSatisfied {
-				if c.Else == "" {
-					continue
-				}
-
-				shouldCheck, err := f.parser.Parse(comb, c.Else)
-				if err != nil {
-					return nil, fmt.Errorf("%s: %w", funcName, err)
-				}
-
-				// Irrelevant condition is skipped
-				if !shouldCheck {
-					continue
-				}
+			if !ok {
+				isValidComb = false
+				break
 			}
-
-			// Check if the combination satisfies the condition
-			ok, err := f.parser.Parse(comb, c.OnlyIf)
-			if err != nil {
-				return nil, fmt.Errorf("%s: %w", funcName, err)
-			}
-
-			if (isSatisfied && ok) || (!isSatisfied && !ok) {
-				continue
-			}
-
-			isValidComb = false
-			break
 		}
 		if isValidComb {
 			combs = append(combs, comb)
 		}
 	}
 	return combs, nil
+}
+
+func isConstraintSatisfied(parse func(model.Combination, string) (bool, error), cmb model.Combination, cns model.Constraint) (bool, error) {
+	if cns.If == "" {
+		return isOnlyIfConditionSatisfied(parse, cmb, cns)
+	}
+
+	// TODO: if condition
+	return false, nil
+}
+
+func isOnlyIfConditionSatisfied(parse func(model.Combination, string) (bool, error), cmb model.Combination, cns model.Constraint) (bool, error) {
+	const funcName = "isOnlyIfConditionSatisfied"
+
+	// Check if the combination is related to the condition
+	isSatisfied, err := parse(cmb, cns.Then)
+	if err != nil {
+		return false, fmt.Errorf("%s: %w", funcName, err)
+	}
+
+	if !isSatisfied {
+		if cns.Else == "" {
+			return true, nil
+		}
+
+		shouldCheck, err := parse(cmb, cns.Else)
+		if err != nil {
+			return false, fmt.Errorf("%s: %w", funcName, err)
+		}
+
+		// Irrelevant condition is skipped
+		if !shouldCheck {
+			return true, nil
+		}
+	}
+
+	// Check if the combination satisfies the condition
+	ok, err := parse(cmb, cns.OnlyIf)
+	if err != nil {
+		return false, fmt.Errorf("%s: %w", funcName, err)
+	}
+
+	if (isSatisfied && ok) || (!isSatisfied && !ok) {
+		return true, nil
+	}
+
+	return false, nil
 }
