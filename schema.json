@@ -29,6 +29,11 @@
         }
       ],
       "properties": {
+        "id": {
+          "type": "string",
+          "title": "ID",
+          "description": "Constraint ID used for debugging"
+        },
         "if": {
           "type": "string",
           "pattern": "^[$!(\\w][$!().\\w\u0026| ]+[\\w)]$",

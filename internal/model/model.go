@@ -16,6 +16,7 @@ type Factor struct {
 type Conditions map[string]string
 
 type Constraint struct {
+	ID     string `json:"id,omitempty" jsonschema:"title=ID,description=Constraint ID used for debugging"`
 	If     string `json:"if,omitempty" jsonschema:"oneof_required=if,title=If,description=The condition in then should be satisfied if this condition is satisfied,example=factor1.level1 && !factor2.level2"`
 	OnlyIf string `yaml:"only_if" json:"only_if,omitempty" jsonschema:"oneof_required=only_if,title=Only if,description=The condition in then is available only if this condition is satisfied,example=factor1.level1 && !factor2.level2"`
 	Then   string `json:"then" jsonschema:"title=Then,example=factor1.level1 && !factor2.level2"`
