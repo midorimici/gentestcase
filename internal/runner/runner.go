@@ -15,6 +15,7 @@ import (
 	"github.com/midorimici/gentestcase/internal/filterer"
 	"github.com/midorimici/gentestcase/internal/generator"
 	"github.com/midorimici/gentestcase/internal/loader"
+	"github.com/midorimici/gentestcase/internal/model"
 	"github.com/midorimici/gentestcase/internal/sorter"
 )
 
@@ -124,6 +125,7 @@ func (r *runner) listen(in io.ReadSeeker, watcher *fsnotify.Watcher) {
 				continue
 			}
 
+			fmt.Println()
 			log.Printf("file modified: %q\n", event.Name)
 
 			if err := rewindFile(in); err != nil {
@@ -177,8 +179,8 @@ func (r *runner) run(in io.Reader) error {
 
 	// Filter unnecessary cases
 	p := condition.NewParser(d.Data)
-	f := filterer.New(d.Data.Constraints, p, cs)
-	fcs, err := f.Filter()
+	f := filterer.New(d.Data.Constraints, p, cs, r.debugFilename != "")
+	fcs, dcs, err := f.Filter()
 	if err != nil {
 		return fmt.Errorf("%s: %w", funcName, err)
 	}
@@ -186,20 +188,36 @@ func (r *runner) run(in io.Reader) error {
 	fcslen := len(fcs)
 	fmt.Printf("Eliminated %d combinations, kept %d combinations\n", cslen-fcslen, fcslen)
 
+	if err := sortConvertExport(d, fcs, r.outputFilename, false); err != nil {
+		return fmt.Errorf("%s: %w", funcName, err)
+	}
+
+	if r.debugFilename != "" {
+		if err := sortConvertExport(d, dcs, r.debugFilename, true); err != nil {
+			return fmt.Errorf("%s: %w", funcName, err)
+		}
+	}
+
+	return nil
+}
+
+func sortConvertExport(d *loader.Result, combs []model.Combination, outputFilename string, isDebug bool) error {
+	const funcName = "sortConvertExport"
+
 	// Sort cases
 	s := sorter.New(d.Data.Factors, d.OrderedFactors, d.LevelOrders)
-	scs := s.Sort(fcs)
+	scs := s.Sort(combs)
 
 	// Convert cases to table
-	cv := converter.New(d.Data.Factors, d.OrderedFactors)
+	cv := converter.New(d.Data.Factors, d.OrderedFactors, isDebug)
 	t := cv.ConvertCombinationMapsToTable(scs)
 
 	// Setup output writer
 	var out io.Writer
-	if r.outputFilename == "" {
+	if outputFilename == "" {
 		out = os.Stdout
 	} else {
-		f, err := os.Create(r.outputFilename)
+		f, err := os.Create(outputFilename)
 		if err != nil {
 			return fmt.Errorf("%s: %w", funcName, err)
 		}
@@ -207,7 +225,11 @@ func (r *runner) run(in io.Reader) error {
 		out = f
 	}
 
-	fmt.Printf("Write test cases to %q ...", r.outputFilename)
+	text := "Write test cases to %q ..."
+	if isDebug {
+		text = fmt.Sprintf("[debug] %s", text)
+	}
+	fmt.Printf(text, outputFilename)
 
 	// Export to CSV
 	e := exporter.New(out, d.Data.Factors)
