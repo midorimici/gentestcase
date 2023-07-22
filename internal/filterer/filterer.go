@@ -100,7 +100,11 @@ func isConstraintSatisfied(parse func(model.Combination, string) (bool, error), 
 
 func isIfConditionSatisfied(parse func(model.Combination, string) (bool, error), cmb model.Combination, cns model.Constraint) (bool, map[string]bool, error) {
 	const funcName = "isIfConditionSatisfied"
-	constraintID := fmt.Sprintf("condition of if: %s", cns.If)
+
+	constraintID := cns.ID
+	if constraintID == "" {
+		constraintID = fmt.Sprintf("condition of if: %s", cns.If)
+	}
 
 	// Check if the combination is related to the condition
 	isSatisfied, err := parse(cmb, cns.If)
@@ -158,7 +162,11 @@ func isIfConditionSatisfied(parse func(model.Combination, string) (bool, error),
 
 func isOnlyIfConditionSatisfied(parse func(model.Combination, string) (bool, error), cmb model.Combination, cns model.Constraint) (bool, map[string]bool, error) {
 	const funcName = "isOnlyIfConditionSatisfied"
-	constraintID := fmt.Sprintf("condition of only_if: %s", cns.OnlyIf)
+
+	constraintID := cns.ID
+	if constraintID == "" {
+		constraintID = fmt.Sprintf("condition of only_if: %s", cns.OnlyIf)
+	}
 
 	// Check if the combination is related to the condition
 	isSatisfied, err := parse(cmb, cns.Then)
