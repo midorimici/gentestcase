@@ -14,7 +14,30 @@
       "type": "object"
     },
     "Constraint": {
+      "oneOf": [
+        {
+          "required": [
+            "if"
+          ],
+          "title": "if"
+        },
+        {
+          "required": [
+            "only_if"
+          ],
+          "title": "only_if"
+        }
+      ],
       "properties": {
+        "if": {
+          "type": "string",
+          "pattern": "^[$!(\\w][$!().\\w\u0026| ]+[\\w)]$",
+          "title": "If",
+          "description": "The condition in then should be satisfied if this condition is satisfied",
+          "examples": [
+            "factor1.level1 \u0026\u0026 !factor2.level2"
+          ]
+        },
         "only_if": {
           "type": "string",
           "pattern": "^[$!(\\w][$!().\\w\u0026| ]+[\\w)]$",
@@ -44,7 +67,6 @@
       "additionalProperties": false,
       "type": "object",
       "required": [
-        "only_if",
         "then"
       ]
     },
