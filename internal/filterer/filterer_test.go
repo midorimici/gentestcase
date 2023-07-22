@@ -190,8 +190,8 @@ func Test_filterer_Filter(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			f := filterer.New(tt.constraints, parser, combinations)
-			got, err := f.Filter()
+			f := filterer.New(tt.constraints, parser, combinations, false)
+			got, _, err := f.Filter()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("filterer.Filter() error = %v, wantErr %v", err, tt.wantErr)
 				return
