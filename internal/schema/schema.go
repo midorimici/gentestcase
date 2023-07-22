@@ -1,4 +1,4 @@
-package main
+package schema
 
 import (
 	"encoding/json"
@@ -12,20 +12,32 @@ import (
 	"github.com/midorimici/gentestcase/internal/model"
 )
 
-var outputFilename = flag.String("o", "schema.json", "output schema JSON filename")
+type SchemaSaver interface {
+	Save() error
+}
 
-func main() {
+type schemaSaver struct {
+	outputFilename string
+}
+
+func New(outputFilename string) SchemaSaver {
+	return &schemaSaver{outputFilename: outputFilename}
+}
+
+func (s *schemaSaver) Save() error {
 	flag.Parse()
 
-	s := jsonschema.Reflect(&model.Data{})
-	restrictPropertyNames(s)
-	if err := addConditionPatterns(s); err != nil {
-		log.Fatal(err)
+	schema := jsonschema.Reflect(&model.Data{})
+	restrictPropertyNames(schema)
+	if err := addConditionPatterns(schema); err != nil {
+		return err
 	}
 
-	if err := export(s); err != nil {
-		log.Fatal(err)
+	if err := s.export(schema); err != nil {
+		return err
 	}
+
+	return nil
 }
 
 func restrictPropertyNames(s *jsonschema.Schema) {
@@ -66,18 +78,18 @@ func addConditionPatterns(s *jsonschema.Schema) error {
 	return nil
 }
 
-func export(s *jsonschema.Schema) error {
-	d, err := json.MarshalIndent(s, "", "  ")
+func (s *schemaSaver) export(schema *jsonschema.Schema) error {
+	d, err := json.MarshalIndent(schema, "", "  ")
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Setup output writer
 	var out io.Writer
-	if *outputFilename == "" {
+	if s.outputFilename == "" {
 		out = os.Stdout
 	} else {
-		f, err := os.Create(*outputFilename)
+		f, err := os.Create(s.outputFilename)
 		if err != nil {
 			return err
 		}

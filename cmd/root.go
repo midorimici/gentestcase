@@ -25,6 +25,7 @@ func Execute() {
 var subcommands = []func() *cobra.Command{
 	versionCmd,
 	runCmd,
+	schemaCmd,
 }
 
 func setSubcommands(rootCmd *cobra.Command) {
