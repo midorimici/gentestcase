@@ -204,7 +204,7 @@ func (r *runner) run(in io.Reader) error {
 	fmt.Printf("Write test cases to %q ...", r.outputFilename)
 
 	// Export to CSV
-	e := exporter.New(out, d.Data.Factors, d.OrderedFactors)
+	e := exporter.New(out, d.Data.Factors)
 	if err := e.ExportCSV(t); err != nil {
 		return fmt.Errorf("%s: %w", funcName, err)
 	}

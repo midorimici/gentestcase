@@ -17,6 +17,15 @@ func New(factors model.Factors, orderedFactors []string) Converter {
 
 func (c *converter) ConvertCombinationMapsToTable(maps []model.Combination) [][]string {
 	table := [][]string{}
+
+	// Header
+	header := []string{}
+	for _, f := range c.orderedFactors {
+		header = append(header, c.factors[f].Name)
+	}
+	table = append(table, header)
+
+	// Body
 	for _, m := range maps {
 		row := []string{}
 		for _, e := range c.orderedFactors {
