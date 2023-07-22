@@ -103,22 +103,44 @@ It defines constraints between factor levels.
 
 A value of `constraints` is a list with each constraint.
 
-A constraint has `only_if` (required), `then` (required) and `else` (optional) properties.
+A constraint has `if`, `only_if` (either required), `then` (required) and `else` (optional) properties.
 
 Each of those properties has a value of condition statement.
 
-A combination that satisfies `then` condition is preserved **only if** `only_if` condition is evaluated to true.
+When `if` is specified, **only** a combination that satisfies `then` condition is preserved **if** `if` condition is evaluated to true.
+
+Thus, combinations that satisfy `if` condition but do not satisfy `then` condition are omitted from the result output.
+
+When `else` is specified with `if`, only a combination that satisfies `else` condition is preserved if `if` condition is evaluated to false.
+
+Thus, combinations that don't satisfy both of `if` condition and `else` condition are omitted from the result output.
+
+When `only_if` is specified, a combination that satisfies `then` condition is preserved **only if** `only_if` condition is evaluated to true.
 
 Thus, when `only_if` is evaluated to false, combinations that satisfy `then` condition are omitted from the result output.
 
-When `else` is specified, a combination that satisfies `else` condition is preserved only if `only_if` condition is evaluated to false.
+When `else` is specified with `only_if`, a combination that satisfies `else` condition is preserved only if `only_if` condition is evaluated to false.
 
 Thus, when `only_if` is evaluated to true, combinations that satisfy `else` condition are omitted from the result output.
+
+The following two constraints are equivalent.
+
+```yml
+- if: A
+  then: B
+# A => B
+  
+- only_if: B
+  then: A
+# not B => not A
+```
 
 Below is an example of `constraints` definition.
 
 ```yml
 constraints:
+  - if: '$is_cold'
+    then: 'action.wear_coat'
   - only_if: 'weather.rainy || ($is_hot && weather.sunny)'
     then: 'action.open_umbrella'
   - only_if: 'weather.sunny'
