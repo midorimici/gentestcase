@@ -12,14 +12,14 @@ import (
 	"github.com/midorimici/gentestcase/internal/model"
 )
 
-type data struct {
+type Result struct {
 	Data           *model.Data
 	OrderedFactors []string
 	LevelOrders    map[string]map[string]int
 }
 
 type Loader interface {
-	Load() (*data, error)
+	Load() (*Result, error)
 }
 
 type loader struct {
@@ -30,7 +30,7 @@ func New(in io.Reader) Loader {
 	return &loader{in}
 }
 
-func (l *loader) Load() (*data, error) {
+func (l *loader) Load() (*Result, error) {
 	const funcName = "loader.Load"
 
 	bytes, err := readInput(l.in)
@@ -55,18 +55,18 @@ func (l *loader) Load() (*data, error) {
 		return nil, fmt.Errorf("%s: %w", funcName, err)
 	}
 
-	return &data{d, factors, opOrds}, nil
+	return &Result{d, factors, opOrds}, nil
 }
 
 func readInput(f io.Reader) ([]byte, error) {
 	const funcName = "readInput"
 
-	data, err := io.ReadAll(f)
+	Result, err := io.ReadAll(f)
 	if err != nil {
 		return nil, fmt.Errorf("%s: %w", funcName, err)
 	}
 
-	return data, nil
+	return Result, nil
 }
 
 func orderedFactors(fileStr string) ([]string, error) {
