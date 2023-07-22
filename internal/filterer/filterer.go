@@ -51,11 +51,51 @@ func isConstraintSatisfied(parse func(model.Combination, string) (bool, error), 
 		return false, fmt.Errorf("%s: either if or only_if property is required", funcName)
 	}
 
-	if cns.If == "" {
-		return isOnlyIfConditionSatisfied(parse, cmb, cns)
+	if cns.OnlyIf == "" {
+		return isIfConditionSatisfied(parse, cmb, cns)
 	}
 
-	// TODO: if condition
+	return isOnlyIfConditionSatisfied(parse, cmb, cns)
+}
+
+func isIfConditionSatisfied(parse func(model.Combination, string) (bool, error), cmb model.Combination, cns model.Constraint) (bool, error) {
+	const funcName = "isIfConditionSatisfied"
+
+	// Check if the combination is related to the condition
+	isSatisfied, err := parse(cmb, cns.If)
+	if err != nil {
+		return false, fmt.Errorf("%s: %w", funcName, err)
+	}
+
+	if isSatisfied {
+		// Check if the combination satisfies then condition
+		ok, err := parse(cmb, cns.Then)
+		if err != nil {
+			return false, fmt.Errorf("%s: %w", funcName, err)
+		}
+
+		if ok {
+			return true, nil
+		}
+
+		return false, nil
+	}
+
+	// Irrelevant condition is skipped
+	if cns.Else == "" {
+		return true, nil
+	}
+
+	// Check else condition
+	isElseSatisfied, err := parse(cmb, cns.Else)
+	if err != nil {
+		return false, fmt.Errorf("%s: %w", funcName, err)
+	}
+
+	if isElseSatisfied {
+		return true, nil
+	}
+
 	return false, nil
 }
 
@@ -69,6 +109,7 @@ func isOnlyIfConditionSatisfied(parse func(model.Combination, string) (bool, err
 	}
 
 	if !isSatisfied {
+		// Irrelevant condition is skipped
 		if cns.Else == "" {
 			return true, nil
 		}
