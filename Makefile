@@ -1,13 +1,13 @@
 PKG=./...
 
 run:
-	@go run cmd/gentestcase/main.go $(ARGS)
+	@go run main.go run $(ARGS)
 
 test:
 	@go test -v $(PKG)
 
 build:
-	@go build -o gentestcase cmd/gentestcase/main.go
+	@go build -o gentestcase main.go
 
 schema:
-	@go run cmd/schema/main.go $(ARGS)
+	@go run main.go schema $(ARGS)

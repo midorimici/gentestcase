@@ -5,22 +5,24 @@ Generate integration test cases.
 ### Installation
 
 ```
-go install github.com/midorimici/gentestcase/cmd/gentestcase@latest
+go install github.com/midorimici/gentestcase@latest
 ```
 
 ### Usage
 
 1. Prepare YAML file which defines test factors
-1. Run `gentestcase`
+1. Run `gentestcase run`
 1. A CSV file is generated
 
 ```
-Usage of gentestcase:
-  -input string
-        input YAML filename (default "cases.yml")
-  -output string
-        output CSV filename (default "data.csv")
-  -w    watch input file change
+Usage:
+  gentestcase run [flags]
+
+Flags:
+  -h, --help            help for run
+  -i, --input string    input YAML filename (default "cases.yml")
+  -o, --output string   output CSV filename (default "data.csv")
+  -w, --watch           watch input file change
 ```
 
 ### Test case definition YAML specification
@@ -28,7 +30,7 @@ Usage of gentestcase:
 You can generate JSON schema with the following command to validate your YAML files.
 
 ```
-go run github.com/midorimici/gentestcase/cmd/schema@latest
+gentestcase schema
 ```
 
 You can refer to `examples` directory as input YAML files and its outputs.
