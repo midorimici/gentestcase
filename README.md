@@ -105,6 +105,8 @@ A value of `constraints` is a list with each constraint.
 
 A constraint has `if`, `only_if` (either required), `then` (required) and `else` (optional) properties.
 
+Specifying both `if` and `only_if` causes an error.
+
 Each of those properties has a value of condition statement.
 
 When `if` is specified, **only** a combination that satisfies `then` condition is preserved **if** `if` condition is evaluated to true.
