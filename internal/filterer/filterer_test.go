@@ -67,6 +67,7 @@ func Test_filterer_Filter(t *testing.T) {
 		want        []model.Combination
 		wantErr     bool
 	}{
+		// Normal
 		{
 			name:        "returns result as expected with single condition",
 			constraints: model.Constraints{c1},
@@ -163,6 +164,28 @@ func Test_filterer_Filter(t *testing.T) {
 				{"e1": "b", "e2": "e", "e3": "g"},
 				{"e1": "b", "e2": "f", "e3": "h"},
 			},
+		},
+
+		// Abnormal
+		{
+			name: "returns error when neither if nor only_if is specified",
+			constraints: model.Constraints{
+				{
+					Then: "e3.h",
+				},
+			},
+			wantErr: true,
+		},
+		{
+			name: "returns error when both if and only_if are specified",
+			constraints: model.Constraints{
+				{
+					If:     "e1.a",
+					OnlyIf: "e1.a",
+					Then:   "e3.h",
+				},
+			},
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {

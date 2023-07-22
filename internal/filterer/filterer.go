@@ -55,7 +55,11 @@ func isConstraintSatisfied(parse func(model.Combination, string) (bool, error), 
 		return isIfConditionSatisfied(parse, cmb, cns)
 	}
 
-	return isOnlyIfConditionSatisfied(parse, cmb, cns)
+	if cns.If == "" {
+		return isOnlyIfConditionSatisfied(parse, cmb, cns)
+	}
+
+	return false, fmt.Errorf("%s: cannot specify both if and only_if", funcName)
 }
 
 func isIfConditionSatisfied(parse func(model.Combination, string) (bool, error), cmb model.Combination, cns model.Constraint) (bool, error) {
