@@ -10,12 +10,13 @@ import (
 
 func Test_converter_ConvertCombinationMapsToTable(t *testing.T) {
 	elems := model.Factors{
-		"e1": {Levels: map[string]string{"a": "A", "b": "B"}},
-		"e2": {Levels: map[string]string{"d": "D", "e": "E", "f": "F"}},
-		"e3": {Levels: map[string]string{"g": "G", "h": "H"}},
+		"e1": {Name: "Factor 1", Levels: map[string]string{"a": "A", "b": "B"}},
+		"e2": {Name: "Factor 2", Levels: map[string]string{"d": "D", "e": "E", "f": "F"}},
+		"e3": {Name: "Factor 3", Levels: map[string]string{"g": "G", "h": "H"}},
 	}
 	orderedFactors := []string{"e1", "e2", "e3"}
 	want := [][]string{
+		{"Factor 1", "Factor 2", "Factor 3"},
 		{"A", "D", "G"},
 		{"A", "D", "H"},
 		{"A", "E", "G"},
