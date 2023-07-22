@@ -26,10 +26,16 @@ type runner struct {
 	inputFilename  string
 	outputFilename string
 	isWatching     bool
+	debugFilename  string
 }
 
-func New(inputFilename, outputFilename string, isWatching bool) Runner {
-	return &runner{inputFilename: inputFilename, outputFilename: outputFilename, isWatching: isWatching}
+func New(inputFilename, outputFilename string, isWatching bool, debugFilename string) Runner {
+	return &runner{
+		inputFilename:  inputFilename,
+		outputFilename: outputFilename,
+		isWatching:     isWatching,
+		debugFilename:  debugFilename,
+	}
 }
 
 func (r *runner) Run() error {
