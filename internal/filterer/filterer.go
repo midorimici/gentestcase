@@ -45,6 +45,12 @@ func (f *filterer) Filter() ([]model.Combination, error) {
 }
 
 func isConstraintSatisfied(parse func(model.Combination, string) (bool, error), cmb model.Combination, cns model.Constraint) (bool, error) {
+	const funcName = "isConstraintSatisfied"
+
+	if cns.If == "" && cns.OnlyIf == "" {
+		return false, fmt.Errorf("%s: either if or only_if property is required", funcName)
+	}
+
 	if cns.If == "" {
 		return isOnlyIfConditionSatisfied(parse, cmb, cns)
 	}
