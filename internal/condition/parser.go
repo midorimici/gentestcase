@@ -26,7 +26,10 @@ func init() {
 	refRe = regexp.MustCompile(`(!?)\$(\w+)`)
 }
 
+// Parser is used to get parsed results of condition statement texts.
 type Parser interface {
+	// Parse returns whether a given combination satisfies a condition
+	// represented by a given condition statement text.
 	Parse(combination model.Combination, text string) (bool, error)
 }
 
@@ -34,6 +37,7 @@ type parser struct {
 	data *model.Data
 }
 
+// NewParser returns a new Parser for given data.
 func NewParser(data *model.Data) Parser {
 	return &parser{data}
 }

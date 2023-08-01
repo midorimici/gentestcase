@@ -12,13 +12,21 @@ import (
 	"github.com/midorimici/gentestcase/internal/model"
 )
 
+// Result contains read data from a YAML file.
 type Result struct {
-	Data           *model.Data
+	// Data contains factors, conditions and constraints.
+	Data *model.Data
+
+	// OrderedFactors is a list of factors sorted by ascending order of appearance.
 	OrderedFactors []string
-	LevelOrders    map[string]map[string]int
+
+	// LevelOrders is a map with factor IDs as keys and level and order pairs as values.
+	LevelOrders map[string]map[string]int
 }
 
+// Loader is used to load data from a YAML file.
 type Loader interface {
+	// Load reads data from a YAML file.
 	Load() (*Result, error)
 }
 
@@ -26,6 +34,7 @@ type loader struct {
 	in io.Reader
 }
 
+// New returns a new Loader for a given input source.
 func New(in io.Reader) Loader {
 	return &loader{in}
 }

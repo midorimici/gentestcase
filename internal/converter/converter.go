@@ -7,7 +7,9 @@ import (
 	"github.com/midorimici/gentestcase/internal/model"
 )
 
+// Converter is used to convert combinations to a 2D array.
 type Converter interface {
+	// ConvertCombinationMapsToTable converts a given combination list to a two dimensional array.
 	ConvertCombinationMapsToTable(maps []model.Combination) [][]string
 }
 
@@ -17,6 +19,7 @@ type converter struct {
 	isDebug        bool
 }
 
+// New returns a new Converter for given data.
 func New(factors model.Factors, orderedFactors []string, isDebug bool) Converter {
 	return &converter{factors, orderedFactors, isDebug}
 }
