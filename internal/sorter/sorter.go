@@ -6,7 +6,9 @@ import (
 	"github.com/midorimici/gentestcase/internal/model"
 )
 
+// Sorter is used to sort combinations.
 type Sorter interface {
+	// Sort sorts given combinations in ascending order of appearance in the source YAML file.
 	Sort(combinations []model.Combination) []model.Combination
 }
 
@@ -16,6 +18,7 @@ type sorter struct {
 	levelOrders    map[string]map[string]int
 }
 
+// New returns a new Sorter.
 func New(factors model.Factors, orderedFactors []string, levelOrders map[string]map[string]int) Sorter {
 	return &sorter{factors, orderedFactors, levelOrders}
 }

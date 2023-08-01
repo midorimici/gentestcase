@@ -19,7 +19,9 @@ import (
 	"github.com/midorimici/gentestcase/internal/sorter"
 )
 
+// Runner is used to run the program.
 type Runner interface {
+	// Run runs the program.
 	Run() error
 }
 
@@ -30,6 +32,11 @@ type runner struct {
 	debugFilename  string
 }
 
+// New returns a new Runner for given I/O sources and options.
+//
+// When isWatching is true, the program runs with hot reloading mode.
+//
+// When debugFilename is not empty, the program outputs debug information.
 func New(inputFilename, outputFilename string, isWatching bool, debugFilename string) Runner {
 	return &runner{
 		inputFilename:  inputFilename,
@@ -232,7 +239,7 @@ func sortConvertExport(d *loader.Result, combs []model.Combination, outputFilena
 	fmt.Printf(text, outputFilename)
 
 	// Export to CSV
-	e := exporter.New(out, d.Data.Factors)
+	e := exporter.New(out)
 	if err := e.ExportCSV(t); err != nil {
 		return fmt.Errorf("%s: %w", funcName, err)
 	}

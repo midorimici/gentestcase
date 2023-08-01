@@ -12,7 +12,9 @@ import (
 	"github.com/midorimici/gentestcase/internal/model"
 )
 
+// SchemaSaver is used to output the schema to an output destination.
 type SchemaSaver interface {
+	// Save creates a schema file.
 	Save() error
 }
 
@@ -20,6 +22,7 @@ type schemaSaver struct {
 	outputFilename string
 }
 
+// New returns a new SchemaServer for a given output file name.
 func New(outputFilename string) SchemaSaver {
 	return &schemaSaver{outputFilename: outputFilename}
 }

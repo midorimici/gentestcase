@@ -4,21 +4,21 @@ import (
 	"encoding/csv"
 	"fmt"
 	"io"
-
-	"github.com/midorimici/gentestcase/internal/model"
 )
 
+// Exporter is used to export a table to CSV.
 type Exporter interface {
+	// ExportCSV exports a given table to a CSV file.
 	ExportCSV(table [][]string) error
 }
 
 type exporter struct {
-	out     io.Writer
-	factors model.Factors
+	out io.Writer
 }
 
-func New(out io.Writer, factors model.Factors) Exporter {
-	return &exporter{out, factors}
+// New returns a new Exporter for a given output destination.
+func New(out io.Writer) Exporter {
+	return &exporter{out}
 }
 
 func (e *exporter) ExportCSV(table [][]string) error {

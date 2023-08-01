@@ -2,7 +2,9 @@ package generator
 
 import "github.com/midorimici/gentestcase/internal/model"
 
+// Generator is used to generate all possible combinations.
 type Generator interface {
+	// Generate returns all possible combinations.
 	Generate() []model.Combination
 }
 
@@ -10,6 +12,7 @@ type generator struct {
 	factors model.Factors
 }
 
+// New returns a new Generator for given factor and levels.
 func New(c model.Factors) Generator {
 	return &generator{c}
 }

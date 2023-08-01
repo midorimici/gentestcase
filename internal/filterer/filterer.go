@@ -7,7 +7,9 @@ import (
 	"github.com/midorimici/gentestcase/internal/model"
 )
 
+// Filterer is a filter which removes combinations which do not satisfy given constraints.
 type Filterer interface {
+	// Filter returns filtered combinations and all combinations with debug information.
 	Filter() ([]model.Combination, []model.Combination, error)
 }
 
@@ -18,6 +20,9 @@ type filterer struct {
 	isDebug      bool
 }
 
+// New returns a new Filterer for given constraints and combinations.
+//
+// It outputs additional information for debugging when isDebug is true.
 func New(constraints model.Constraints, p condition.Parser, comb []model.Combination, isDebug bool) Filterer {
 	return &filterer{constraints, p, comb, isDebug}
 }
