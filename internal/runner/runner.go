@@ -232,7 +232,7 @@ func sortConvertExport(d *loader.Result, combs []model.Combination, outputFilena
 	fmt.Printf(text, outputFilename)
 
 	// Export to CSV
-	e := exporter.New(out, d.Data.Factors)
+	e := exporter.New(out)
 	if err := e.ExportCSV(t); err != nil {
 		return fmt.Errorf("%s: %w", funcName, err)
 	}

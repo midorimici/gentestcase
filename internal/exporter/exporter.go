@@ -13,12 +13,11 @@ type Exporter interface {
 }
 
 type exporter struct {
-	out     io.Writer
-	factors model.Factors
+	out io.Writer
 }
 
-func New(out io.Writer, factors model.Factors) Exporter {
-	return &exporter{out, factors}
+func New(out io.Writer) Exporter {
+	return &exporter{out}
 }
 
 func (e *exporter) ExportCSV(table [][]string) error {
