@@ -40,7 +40,6 @@ You can refer to `examples` directory as input YAML files and its outputs.
 `factors` is a required top-level property.
 
 Values of `factors` are key-value pairs that represents each individual factor.
-
 A pair has a key that represents an factor unique identifier, and a value that contains `name` and `levels` properties.
 
 `name` represents the outputted name of the factor.
@@ -66,11 +65,9 @@ factors:
 #### `conditions`
 
 `conditions` is an optional top-level property.
-
 It defines condition variables which can be used in other values in `conditions` or `constraints`.
 
 Values of `conditions` are key-value pairs that represents each condition.
-
 A pair has a key that represents a condition unique identifier, and a value that represents a condition statement.
 
 Below is the EBNF of condition statement syntax.
@@ -100,31 +97,23 @@ conditions:
 #### `constraints`
 
 `constraints` is an optional top-level property.
-
 It defines constraints between factor levels.
-
 A value of `constraints` is a list with each constraint.
 
 A constraint has `if`, `only_if` (either required), `then` (required) and `else` (optional) properties.
-
 Specifying both `if` and `only_if` causes an error.
-
 Each of those properties has a value of condition statement.
 
 When `if` is specified, **only** a combination that satisfies `then` condition is preserved **if** `if` condition is evaluated to true.
-
 Thus, combinations that satisfy `if` condition but do not satisfy `then` condition are omitted from the result output.
 
 When `else` is specified with `if`, only a combination that satisfies `else` condition is preserved if `if` condition is evaluated to false.
-
 Thus, combinations that don't satisfy both of `if` condition and `else` condition are omitted from the result output.
 
 When `only_if` is specified, a combination that satisfies `then` condition is preserved **only if** `only_if` condition is evaluated to true.
-
 Thus, when `only_if` is evaluated to false, combinations that satisfy `then` condition are omitted from the result output.
 
 When `else` is specified with `only_if`, a combination that satisfies `else` condition is preserved only if `only_if` condition is evaluated to false.
-
 Thus, when `only_if` is evaluated to true, combinations that satisfy `else` condition are omitted from the result output.
 
 The following two constraints are equivalent.
